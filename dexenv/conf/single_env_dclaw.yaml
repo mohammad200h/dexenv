@@ -13,4 +13,3 @@ alg:
 logging:
   wandb:
     mode: offline
-

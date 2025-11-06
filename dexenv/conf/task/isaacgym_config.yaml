@@ -3,8 +3,8 @@ name: ShadowHand
 
 physics_engine: physx
 # disables rendering
-headless: True
-rgb_render: False
+headless: False
+rgb_render: True
 
 sim:
   device: 'cuda'

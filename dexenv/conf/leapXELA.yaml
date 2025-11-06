@@ -1,0 +1,19 @@
+defaults:
+  - leapXELA_default.yaml
+  - _self_
+
+alg:
+  env_name: LeapXelaMultiObjs
+  num_envs: 8000
+  init_logstd: -0.2
+
+task:
+  env:
+    name: LeapXelaMultiObjs
+    robot: 'robot'
+    vhacd: False
+  obj:
+    dataset: miscnet
+
+logging:
+  eval_interval: 600

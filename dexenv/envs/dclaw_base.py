@@ -477,6 +477,9 @@ class DClawBase(VecTask):
         print(f'\t Number of dofs: {self.num_dclaw_dofs}')
 
         self.dclaw_asset_dof_dict = self.gym.get_asset_dof_dict(dclaw_asset)
+        # Sort the dictionary by DOF indices to ensure ascending order
+        sorted_dof_items = sorted(self.dclaw_asset_dof_dict.items(), key=lambda x: x[1])
+        self.dclaw_asset_dof_dict = dict(sorted_dof_items)
         joint_names = self.dclaw_asset_dof_dict.keys()
         logger.info(f'Joint names:{joint_names}')
 
@@ -501,6 +504,9 @@ class DClawBase(VecTask):
                 props[prop_name].fill(val)
             elif len(val) == 3:
                 props[prop_name] = np.array(list(val) * int(len(props[prop_name]) / 3))
+            # LeapXela has 4 fingertips
+            elif len(val)== 4:
+                props[prop_name] = np.array(list(val) * int(len(props[prop_name]) / 4)) 
             else:
                 props[prop_name] = np.array(val)
 
@@ -946,3 +952,143 @@ class DClawBase(VecTask):
                                    [p0[0], p0[1], p0[2], objecty[0], objecty[1], objecty[2]], [0.1, 0.85, 0.1])
                 self.gym.add_lines(self.viewer, self.envs[i], 1,
                                    [p0[0], p0[1], p0[2], objectz[0], objectz[1], objectz[2]], [0.1, 0.1, 0.85])
+
+
+
+class LeapXelaBase(DClawBase):
+
+    def get_dclaw_asset(self, asset_root=None, asset_options=None):
+        # load leapXela asset
+        if asset_options is None:
+            asset_options = gymapi.AssetOptions()
+            asset_options.flip_visual_attachments = False
+            asset_options.fix_base_link = True
+            asset_options.collapse_fixed_joints = False
+            asset_options.disable_gravity = False
+            asset_options.thickness = 0.001
+            asset_options.angular_damping = 0.01
+            asset_options.override_inertia = True
+            asset_options.override_com = True
+            logger.info(f'VHACD:{self.cfg.env.vhacd}')
+            if self.cfg.env.vhacd:
+                asset_options.convex_decomposition_from_submeshes = True
+            if self.cfg.physics_engine == "physx":
+                # if self.physics_engine == gymapi.SIM_PHYSX:
+                asset_options.use_physx_armature = True
+            asset_options.default_dof_drive_mode = gymapi.DOF_MODE_POS
+
+        if asset_root is None:
+            asset_root = dexenv.LIB_PATH.joinpath('assets', 'leapXELA_model').as_posix()
+        robot_name = self.cfg.env.robot
+        # For LEAP XELA, the robot file is always robot.xml in the leapXELA_model directory
+        # robot_file = f"{robot_name}.xml"
+        robot_file = f"{robot_name}.urdf"
+
+        leapXela_asset = self.gym.load_asset(self.sim, asset_root, robot_file, asset_options)
+        print(f'LeapXela asset root:{asset_root} robot name:{robot_name}')
+
+        self.num_dclaw_bodies = self.gym.get_asset_rigid_body_count(leapXela_asset)
+        self.num_dclaw_shapes = self.gym.get_asset_rigid_shape_count(leapXela_asset)
+        self.num_dclaw_dofs = self.gym.get_asset_dof_count(leapXela_asset)
+
+        print(f'LeapXela:')
+        print(f'\t Number of bodies: {self.num_dclaw_bodies}')
+        print(f'\t Number of shapes: {self.num_dclaw_shapes}')
+        print(f'\t Number of dofs: {self.num_dclaw_dofs}')
+
+        self.dclaw_asset_dof_dict = self.gym.get_asset_dof_dict(leapXela_asset)
+        # Sort the dictionary by DOF indices to ensure ascending order
+        sorted_dof_items = sorted(self.dclaw_asset_dof_dict.items(), key=lambda x: x[1])
+        self.dclaw_asset_dof_dict = dict(sorted_dof_items)
+        joint_names = self.dclaw_asset_dof_dict.keys()
+        logger.info(f'Joint names:{joint_names}')
+
+        self.dof_joint_indices = list(self.dclaw_asset_dof_dict.values())
+        dinds = np.array(self.dof_joint_indices)
+        assert np.all(np.diff(dinds) > 0)  # check if it's in a sorted order (ascending)
+
+        rb_links = self.gym.get_asset_rigid_body_names(leapXela_asset)
+        self.fingertips = [x for x in rb_links if '_Marker' in x]  # ["one_tip_link", "two_tip_link", "three_tip_link"]
+        self.num_fingertips = len(self.fingertips)
+
+        print(f'Number of fingertips:{self.num_fingertips}  Fingertips:{self.fingertips}')
+
+        print(f'Actuator   ---  DoF Index')
+        for act_name, act_index in zip(joint_names, self.dof_joint_indices):
+            print(f'\t {act_name}   {act_index}')
+
+        leapXela_dof_props = self.gym.get_asset_dof_properties(leapXela_asset)
+
+        def set_dof_prop(props, prop_name, val):
+            if np.isscalar(val):
+                props[prop_name].fill(val)
+            elif len(val) == 3:
+                props[prop_name] = np.array(list(val) * int(len(props[prop_name]) / 3))
+            # LeapXela has 4 fingertips
+            elif len(val)== 4:
+                props[prop_name] = np.array(list(val) * int(len(props[prop_name]) / 4)) 
+            else:
+                props[prop_name] = np.array(val)
+
+        if self.cfg["env"]["dof_vel_hard_limit"] is not None:
+            vel_hard_limit = self.cfg["env"]["dof_vel_hard_limit"] if not self.cfg.env.soft_control else self.cfg["env"]["soft_dof_vel_hard_limit"]
+            print(f'Setting DOF velocity limit to:{vel_hard_limit}')
+            set_dof_prop(leapXela_dof_props, 'velocity', vel_hard_limit)
+        if self.cfg["env"]["effort_limit"] is not None:
+            effort_limit = self.cfg["env"]["effort_limit"] if not self.cfg.env.soft_control else self.cfg["env"]["soft_effort_limit"]
+            print(f'Setting DOF effort limit to:{effort_limit}')
+            set_dof_prop(leapXela_dof_props, 'effort', effort_limit)
+        if self.cfg["env"]["stiffness"] is not None:
+            stiffness = self.cfg["env"]["stiffness"] if not self.cfg.env.soft_control else self.cfg["env"]["soft_stiffness"]
+            print(f'Setting stiffness to:{stiffness}')
+            set_dof_prop(leapXela_dof_props, 'stiffness', stiffness)
+        if self.cfg["env"]["damping"] is not None:
+            damping = self.cfg["env"]["damping"] if not self.cfg.env.soft_control else self.cfg["env"]["soft_damping"]
+            print(f'Setting damping to:{damping}')
+            set_dof_prop(leapXela_dof_props, 'damping', damping)
+
+        self.dclaw_dof_lower_limits = []
+        self.dclaw_dof_upper_limits = []
+
+        self.dclaw_default_dof_states = np.zeros(self.num_dclaw_dofs, dtype=gymapi.DofState.dtype)
+        self.dclaw_default_dof_pos = self.dclaw_default_dof_states['pos']
+        self.dclaw_default_dof_vel = self.dclaw_default_dof_states['vel']
+        for i in range(self.num_dclaw_dofs):
+            self.dclaw_dof_lower_limits.append(leapXela_dof_props['lower'][i])
+            self.dclaw_dof_upper_limits.append(leapXela_dof_props['upper'][i])
+            if i % 3 == 1:
+                self.dclaw_default_dof_pos[i] = 0.8
+            elif i % 3 == 2:
+                self.dclaw_default_dof_pos[i] = -1.1
+            else:
+                self.dclaw_default_dof_pos[i] = 0.
+            self.dclaw_default_dof_vel[i] = 0.0
+
+        self.dof_joint_indices = to_torch(self.dof_joint_indices, dtype=torch.long, device=self.device)
+        self.dclaw_dof_lower_limits = to_torch(self.dclaw_dof_lower_limits, device=self.device)
+        self.dclaw_dof_upper_limits = to_torch(self.dclaw_dof_upper_limits, device=self.device)
+        self.dclaw_default_dof_pos = to_torch(self.dclaw_default_dof_pos, device=self.device)
+        self.dclaw_default_dof_vel = to_torch(self.dclaw_default_dof_vel, device=self.device)
+
+        self.fingertip_handles = [self.gym.find_asset_rigid_body_index(leapXela_asset, name) for name in
+                                  self.fingertips]
+
+        leapXela_asset_props = self.gym.get_asset_rigid_shape_properties(leapXela_asset)
+        for p in leapXela_asset_props:
+            p.friction = self.cfg.env.hand.friction
+            p.torsion_friction = self.cfg.env.hand.torsion_friction
+            p.rolling_friction = self.cfg.env.hand.rolling_friction
+            p.restitution = self.cfg.env.hand.restitution
+        self.gym.set_asset_rigid_shape_properties(leapXela_asset, leapXela_asset_props)
+        return leapXela_asset, leapXela_dof_props
+    def get_dclaw_start_pose(self):
+        dclaw_start_pose = gymapi.Transform()
+        dclaw_start_pose.p = gymapi.Vec3(*get_axis_params(0.25, self.up_axis_idx))
+        # Rotate -90 degrees around X-axis
+        quat_x = gymapi.Quat.from_axis_angle(gymapi.Vec3(1, 0, 0), np.pi/2)
+        
+
+        dclaw_start_pose.r = quat_x 
+        return dclaw_start_pose
+
+    
