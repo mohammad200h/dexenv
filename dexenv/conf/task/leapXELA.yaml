@@ -16,8 +16,8 @@ cam:
   visual_render_width: 1280
 
 env:
-  name: DClawBase
-  robot: 'dclaw_4f'
+  name: LeapXelaBase
+  robot: 'robot'
   numEnvs: ${...alg.num_envs}
   envSpacing: 0.5
   episodeLength: 80 # Not used, but would be 8 sec if resetTime is not set
@@ -90,8 +90,11 @@ env:
   robotCadNumPts: 500
   objCadNumPts: 500
   vhacd: True
-  stiffness: [ 2.7724128689655174, 3.558619503448275, 3.5586195034482757, 3.5586195034482757  ]
-  damping: [ 0.273946924137931, 0.382384248275862, 0.382384248275862, 3.5586195034482757  ]
+  # MuJoCo defaults: kp=3.0 for all actuators (stiffness)
+  # Pattern repeats 4 times for 16 DOFs: [if, mf, rf, th] each with [mcp, rot/axl, pip/mcp, dip/ipl]
+  stiffness: [ 3.0, 3.0, 3.0, 3.0 ]
+  # MuJoCo defaults: damping=0.03 for all joints
+  damping: [ 0.03, 0.03, 0.03, 0.03 ]
   tableInitialFriction: 0.5
   scaleDyn: False
   dofSpeedScale: 24
@@ -99,7 +102,10 @@ env:
   predDyn: False
   tactile: False
   obj_init_delta_pos: null
-  dof_vel_hard_limit: [ 6.55172413793103, 7.758620689655173, 7.7586206896551, 7586206896551 ]
+  # Velocity limits based on joint ranges and reasonable max speeds
+  # Calculated as: (max_range - min_range) / dt * safety_factor for typical joints
+  # Using ~8 rad/s as reasonable max velocity for LEAP hand joints
+  dof_vel_hard_limit: [ 8.0, 8.0, 8.0, 8.0 ]
   effort_limit: 2.6
   dof_vel_pol_limit: 3.5
   ptd_to_robot_base: True
