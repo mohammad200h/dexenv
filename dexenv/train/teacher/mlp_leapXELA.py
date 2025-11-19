@@ -17,7 +17,7 @@ from dexenv.utils.common import set_random_seed
 from dexenv.utils.create_task_env import create_task_env
 
 
-@hydra.main(config_path=dexenv.PROJECT_ROOT.joinpath('conf').as_posix(), config_name="debug_leap")
+@hydra.main(config_path=dexenv.PROJECT_ROOT.joinpath('conf').as_posix(), config_name="debug_leapXELA")
 def main(cfg: DictConfig):
     make_dir(os.environ['WANDB_DIR'])
     set_random_seed(cfg.alg.seed)

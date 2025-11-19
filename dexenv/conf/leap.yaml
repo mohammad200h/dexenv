@@ -1,0 +1,22 @@
+defaults:
+  - leap_default.yaml
+  - _self_
+
+alg:
+  env_name: LeapHandMultiObjs
+  num_envs: 8000
+  init_logstd: -0.2
+
+task:
+  sim:
+    device: 'cuda:0'
+    rl_device: 'cuda:0'
+  env:
+    name: LeapHandMultiObjs
+    robot: 'robot'
+    vhacd: False
+  obj:
+    dataset: miscnet
+
+logging:
+  eval_interval: 600

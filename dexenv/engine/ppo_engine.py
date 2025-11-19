@@ -1,7 +1,9 @@
 import time
+import torch
 import wandb
 from dataclasses import dataclass
 from itertools import count
+from loguru import logger
 
 from dexenv.engine.base_engine import BaseEngine
 from dexenv.utils.common import stack_data
@@ -54,9 +56,33 @@ class PPOEngine(BaseEngine):
         action_infos = traj.action_infos
         vals = stack_data([ainfo['val'] for ainfo in action_infos])
         log_prob = stack_data([ainfo['log_prob'] for ainfo in action_infos])
+        
+        # Log NaN tracking for vals
+        if torch.isnan(vals).any():
+            logger.error(f"[PPOEngine.traj_preprocess] vals contains NaN! NaN count: {torch.isnan(vals).sum()}, stats - min: {vals.min()}, max: {vals.max()}, mean: {vals.mean()}")
+        
         adv = self.cal_advantages(traj)
+        
+        # Log NaN tracking for adv after cal_advantages
+        if torch.isnan(adv).any():
+            logger.error(f"[PPOEngine.traj_preprocess] adv after cal_advantages contains NaN! NaN count: {torch.isnan(adv).sum()}, stats - min: {adv.min()}, max: {adv.max()}, mean: {adv.mean()}")
+        
         ret = adv + vals
-        adv = (adv - adv.mean()) / (adv.std() + 1e-8)
+        
+        # Log NaN tracking for ret after computation
+        if torch.isnan(ret).any():
+            logger.error(f"[PPOEngine.traj_preprocess] ret (adv + vals) contains NaN! NaN count: {torch.isnan(ret).sum()}, stats - min: {ret.min()}, max: {ret.max()}, mean: {ret.mean()}")
+            logger.error(f"[PPOEngine.traj_preprocess] adv stats - min: {adv.min()}, max: {adv.max()}, mean: {adv.mean()}")
+            logger.error(f"[PPOEngine.traj_preprocess] vals stats - min: {vals.min()}, max: {vals.max()}, mean: {vals.mean()}")
+        
+        adv_mean = adv.mean()
+        adv_std = adv.std()
+        adv = (adv - adv_mean) / (adv_std + 1e-8)
+        
+        # Log NaN tracking for adv after normalization
+        if torch.isnan(adv).any():
+            logger.error(f"[PPOEngine.traj_preprocess] adv after normalization contains NaN! NaN count: {torch.isnan(adv).sum()}, stats - min: {adv.min()}, max: {adv.max()}, mean: {adv.mean()}")
+            logger.error(f"[PPOEngine.traj_preprocess] adv_mean: {adv_mean}, adv_std: {adv_std}, adv_std + 1e-8: {adv_std + 1e-8}")
         data = dict(
             ob=swap_flatten_leading_axes(traj.obs),
             action=swap_flatten_leading_axes(traj.actions),
@@ -77,6 +103,13 @@ class PPOEngine(BaseEngine):
         dones = traj.dones
         action_infos = traj.action_infos
         vals = stack_data([ainfo['val'] for ainfo in action_infos])
+        
+        # Log NaN tracking for rewards and vals before GAE
+        if torch.isnan(rewards).any():
+            logger.error(f"[PPOEngine.cal_advantages] rewards contains NaN! NaN count: {torch.isnan(rewards).sum()}, stats - min: {rewards.min()}, max: {rewards.max()}, mean: {rewards.mean()}")
+        if torch.isnan(vals).any():
+            logger.error(f"[PPOEngine.cal_advantages] vals contains NaN! NaN count: {torch.isnan(vals).sum()}, stats - min: {vals.min()}, max: {vals.max()}, mean: {vals.mean()}")
+        
         traj_infos = traj.infos
         if info_has_key(traj_infos, TIMEOUT_KEY):
             timeout_info = aggregate_traj_info(traj_infos, TIMEOUT_KEY)
@@ -87,6 +120,11 @@ class PPOEngine(BaseEngine):
             dones = dones[start_time:]
             vals = vals[start_time:]
         last_val = traj.extra_data['last_val']
+        
+        # Log NaN tracking for last_val
+        if torch.isnan(last_val).any():
+            logger.error(f"[PPOEngine.cal_advantages] last_val contains NaN! NaN count: {torch.isnan(last_val).sum()}, stats - min: {last_val.min()}, max: {last_val.max()}, mean: {last_val.mean()}")
+        
         adv = cal_gae(gamma=self.cfg.alg.rew_discount,
                       lam=self.cfg.alg.gae_lambda,
                       rewards=rewards,
@@ -94,4 +132,9 @@ class PPOEngine(BaseEngine):
                       last_value=last_val,
                       dones=dones,
                       timeout=timeout_info)
+        
+        # Log NaN tracking for adv after cal_gae
+        if torch.isnan(adv).any():
+            logger.error(f"[PPOEngine.cal_advantages] adv after cal_gae contains NaN! NaN count: {torch.isnan(adv).sum()}, stats - min: {adv.min()}, max: {adv.max()}, mean: {adv.mean()}")
+        
         return adv

@@ -1,6 +1,7 @@
 import torch.cuda
 from isaacgymenvs.utils.torch_jit_utils import *
 
+from loguru import logger
 
 @torch.jit.script
 def compute_reward(reset_buf, reset_goal_buf, progress_buf,
@@ -29,6 +30,8 @@ def compute_reward(reset_buf, reset_goal_buf, progress_buf,
         ftip_dist_mean = ftip_dist.mean(dim=-1)
         ftip_reward = ftip_dist_mean * ftip_reward_scale
         reward_terms['ftip_reward'] = ftip_reward
+        if torch.isnan(ftip_reward).any():
+            print("Yoo1")
 
     object_linvel_norm = torch.linalg.norm(object_linvel, dim=-1)
     object_angvel_norm = torch.linalg.norm(object_angvel, dim=-1)
@@ -39,16 +42,21 @@ def compute_reward(reset_buf, reset_goal_buf, progress_buf,
 
     rot_rew = 1.0 / (abs_rot_dist + rot_eps) * rot_reward_scale
     reward_terms['rot_reward'] = rot_rew
+    if torch.isnan(rot_rew).any():
+        print("Yoo2")
     action_norm = torch.linalg.norm(actions, dim=-1)
     energy_cost = torch.abs(dof_vel * dof_torque).sum(dim=-1)
     if clip_energy_reward:
         energy_cost = torch.clamp(energy_cost, max=energy_upper_bound)
+        if torch.isnan(energy_cost).any():
+            print("Yoo3")
     reward_terms['energy_reward'] = -energy_cost * energy_scale
 
     if penalize_tb_contact:
         in_contact = torch.abs(table_cf).sum(-1) > 0.2
         reward_terms['tb_contact_reward'] = -in_contact.float() * tb_cf_scale
-
+        if torch.isnan(in_contact).any():
+            print("Yoo4")
     dof_vel_norm = torch.linalg.norm(dof_vel, dim=-1)
 
     goal_reach = (abs_rot_dist <= success_tolerance) & (dof_vel_norm <= dof_vel_thresh) \
@@ -64,8 +72,14 @@ def compute_reward(reset_buf, reset_goal_buf, progress_buf,
     successes = successes + goal_resets
 
     reward = torch.sum(torch.stack(list(reward_terms.values())), dim=0)
+    if torch.isnan(reward).any():
+        print("YOOOOOOOOO1")
     reward = torch.where(goal_reach, reward + reach_goal_bonus, reward)
+    if torch.isnan(reward).any():
+        print("YOOOOOOOOO2")
     reward = torch.where(fall_envs, reward + fall_penalty, reward)
+    if torch.isnan(reward).any():
+        print("YOOOOOOOOO3")
     time_due_envs = progress_buf >= max_episode_length - 1
     resets = torch.where(time_due_envs, torch.ones_like(resets), resets)
     dones = torch.logical_or(dones, time_due_envs)
@@ -89,6 +103,42 @@ def compute_dclaw_reward(reset_buf, reset_goal_buf, progress_buf,
     success_tolerance = reward_cfg.successTolerance
     ftip_reward_scale = reward_cfg.ftipRewardScale
     penalize_tb_contact = reward_cfg.pen_tb_contact
+
+    
+    if torch.isnan(reset_buf).any():
+        logger.error(f"[compute_dclaw_reward] reset_buf contains NaN! NaN count: {torch.isnan(reset_buf).sum()}")
+    if torch.isnan(reset_goal_buf).any():
+        logger.error(f"[compute_dclaw_reward] reset_goal_buf contains NaN! NaN count: {torch.isnan(reset_goal_buf).sum()}")
+    if torch.isnan(progress_buf).any():
+        logger.error(f"[compute_dclaw_reward] progress_buf contains NaN! NaN count: {torch.isnan(progress_buf).sum()}")
+    if torch.isnan(successes).any():
+        logger.error(f"[compute_dclaw_reward] successes contains NaN! NaN count: {torch.isnan(successes).sum()}")
+  
+    if torch.isnan(object_pos).any():
+        logger.error(f"[compute_dclaw_reward] object_pos contains NaN! NaN count: {torch.isnan(object_pos).sum()}")
+    if torch.isnan(object_rot).any():
+        logger.error(f"[compute_dclaw_reward] object_rot contains NaN! NaN count: {torch.isnan(object_rot).sum()}")
+    if torch.isnan(target_pos).any():
+        logger.error(f"[compute_dclaw_reward] target_pos contains NaN! NaN count: {torch.isnan(target_pos).sum()}")
+    if torch.isnan(target_rot).any():
+        logger.error(f"[compute_dclaw_reward] target_rot contains NaN! NaN count: {torch.isnan(target_rot).sum()}")
+    if torch.isnan(actions).any():
+        logger.error(f"[compute_dclaw_reward] actions contains NaN! NaN count: {torch.isnan(actions).sum()}")
+    if torch.isnan(fingertip_pos).any():
+        logger.error(f"[compute_dclaw_reward] fingertip_pos contains NaN! NaN count: {torch.isnan(fingertip_pos).sum()}")
+    if torch.isnan(fingertip_vel).any():
+        logger.error(f"[compute_dclaw_reward] fingertip_vel contains NaN! NaN count: {torch.isnan(fingertip_vel).sum()}")
+    if torch.isnan(object_linvel).any():
+        logger.error(f"[compute_dclaw_reward] object_linvel contains NaN! NaN count: {torch.isnan(object_linvel).sum()}")
+    if torch.isnan(object_angvel).any():
+        logger.error(f"[compute_dclaw_reward] object_angvel contains NaN! NaN count: {torch.isnan(object_angvel).sum()}")
+    if torch.isnan(dof_vel).any():
+        logger.error(f"[compute_dclaw_reward] dof_vel contains NaN! NaN count: {torch.isnan(dof_vel).sum()}")
+    if torch.isnan(dof_torque).any():
+        logger.error(f"[compute_dclaw_reward] dof_torque contains NaN! NaN count: {torch.isnan(dof_torque).sum()}")
+
+
+    
     kwargs = dict(
         reset_buf=reset_buf,
         reset_goal_buf=reset_goal_buf,

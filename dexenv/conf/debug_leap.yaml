@@ -1,9 +1,12 @@
 defaults:
-  - dclaw.yaml
+  - leap.yaml
   - _self_
 
 task:
   headless: False
+  env:
+    robot: 'robot'
+    vhacd: False
   obj:
     num_objs: 2
 

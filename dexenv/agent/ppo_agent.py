@@ -45,6 +45,15 @@ class PPOAgent:
     def get_action(self, ob, sample=True, get_action_only=False, *args, **kwargs):
         self.eval_mode()
         t_ob = torch_float(ob, device=self.cfg.alg.device)
+        
+        # Log NaN tracking for observations before passing to policy
+        if isinstance(t_ob, dict):
+            for key, val in t_ob.items():
+                if torch.is_tensor(val) and torch.isnan(val).any():
+                    logger.error(f"[PPOAgent.get_action] Observation dict['{key}'] contains NaN! shape: {val.shape}, NaN count: {torch.isnan(val).sum()}")
+        elif torch.is_tensor(t_ob) and torch.isnan(t_ob).any():
+            logger.error(f"[PPOAgent.get_action] Observation tensor contains NaN! shape: {t_ob.shape}, NaN count: {torch.isnan(t_ob).sum()}")
+        
         act_dist, val = self.get_act_val(t_ob, no_val=get_action_only)
         action = action_from_dist(act_dist,
                                   sample=sample)
@@ -62,6 +71,14 @@ class PPOAgent:
         return action.detach(), action_info
 
     def get_act_val(self, ob, no_val=False, *args, **kwargs):
+        # Log NaN tracking for observations right before actor forward
+        if isinstance(ob, dict):
+            for key, val in ob.items():
+                if torch.is_tensor(val) and torch.isnan(val).any():
+                    logger.error(f"[PPOAgent.get_act_val] Observation dict['{key}'] contains NaN before actor forward! shape: {val.shape}, NaN count: {torch.isnan(val).sum()}")
+        elif torch.is_tensor(ob) and torch.isnan(ob).any():
+            logger.error(f"[PPOAgent.get_act_val] Observation tensor contains NaN before actor forward! shape: {ob.shape}, NaN count: {torch.isnan(ob).sum()}")
+        
         act_dist, body_out = self.actor(ob)
         if no_val:
             val = None
@@ -85,10 +102,43 @@ class PPOAgent:
         self.optimizer.zero_grad(set_to_none=True)
         loss_res = self.cal_loss(**processed_data)
         loss, pg_loss, vf_loss, ratio, entropy, approx_kl, clip_frac = loss_res
+        
+        # Log NaN tracking for loss
+        if torch.isnan(loss):
+            logger.error(f"[PPOAgent.optimize] Loss is NaN! loss: {loss}, pg_loss: {pg_loss}, vf_loss: {vf_loss}")
+        if torch.isnan(pg_loss):
+            logger.error(f"[PPOAgent.optimize] pg_loss is NaN!")
+        if torch.isnan(vf_loss):
+            logger.error(f"[PPOAgent.optimize] vf_loss is NaN!")
+        
         grad_norm = None
         loss.backward()
+        
+        # Log NaN tracking for gradients before clipping
+        for name, param in self.actor.named_parameters():
+            if param.grad is not None and torch.isnan(param.grad).any():
+                logger.error(f"[PPOAgent.optimize] Actor parameter '{name}' gradient contains NaN before clipping! NaN count: {torch.isnan(param.grad).sum()}")
+                logger.error(f"[PPOAgent.optimize] Actor parameter '{name}' gradient stats - min: {param.grad.min()}, max: {param.grad.max()}, mean: {param.grad.mean()}")
+        
         grad_norm = clip_grad(self.optim_model.parameters(), self.cfg.alg.max_grad_norm)
+        
+        # Log NaN tracking for gradients after clipping
+        for name, param in self.actor.named_parameters():
+            if param.grad is not None and torch.isnan(param.grad).any():
+                logger.error(f"[PPOAgent.optimize] Actor parameter '{name}' gradient contains NaN after clipping! NaN count: {torch.isnan(param.grad).sum()}")
+        
+        # Log NaN tracking for weights before optimizer step
+        for name, param in self.actor.named_parameters():
+            if torch.isnan(param).any():
+                logger.error(f"[PPOAgent.optimize] Actor parameter '{name}' contains NaN BEFORE optimizer.step()! NaN count: {torch.isnan(param).sum()}")
+        
         self.optimizer.step()
+        
+        # Log NaN tracking for weights after optimizer step
+        for name, param in self.actor.named_parameters():
+            if torch.isnan(param).any():
+                logger.error(f"[PPOAgent.optimize] Actor parameter '{name}' contains NaN AFTER optimizer.step()! NaN count: {torch.isnan(param).sum()}")
+                logger.error(f"[PPOAgent.optimize] Actor parameter '{name}' stats - min: {param.min()}, max: {param.max()}, mean: {param.mean()}")
         optim_info = dict(
             pg_loss=pg_loss.item(),
             vf_loss=vf_loss.item(),
@@ -112,9 +162,34 @@ class PPOAgent:
         old_log_prob = data['log_prob']
         old_val = data['val']
 
+        # Log NaN tracking for input data
+        if torch.isnan(ret).any():
+            logger.error(f"[PPOAgent.optim_preprocess] ret contains NaN! NaN count: {torch.isnan(ret).sum()}, stats - min: {ret.min()}, max: {ret.max()}, mean: {ret.mean()}")
+        if torch.isnan(adv).any():
+            logger.error(f"[PPOAgent.optim_preprocess] adv contains NaN! NaN count: {torch.isnan(adv).sum()}, stats - min: {adv.min()}, max: {adv.max()}, mean: {adv.mean()}")
+        if torch.isnan(old_log_prob).any():
+            logger.error(f"[PPOAgent.optim_preprocess] old_log_prob contains NaN! NaN count: {torch.isnan(old_log_prob).sum()}, stats - min: {old_log_prob.min()}, max: {old_log_prob.max()}, mean: {old_log_prob.mean()}")
+        if torch.isnan(old_val).any():
+            logger.error(f"[PPOAgent.optim_preprocess] old_val contains NaN! NaN count: {torch.isnan(old_val).sum()}, stats - min: {old_val.min()}, max: {old_val.max()}, mean: {old_val.mean()}")
+
         act_dist, val = self.get_act_val(ob)
+        
+        # Log NaN tracking for value prediction
+        if torch.isnan(val).any():
+            logger.error(f"[PPOAgent.optim_preprocess] val (from critic) contains NaN! NaN count: {torch.isnan(val).sum()}, stats - min: {val.min()}, max: {val.max()}, mean: {val.mean()}")
+        
         log_prob = action_log_prob(action, act_dist)
+        
+        # Log NaN tracking for log_prob
+        if torch.isnan(log_prob).any():
+            logger.error(f"[PPOAgent.optim_preprocess] log_prob contains NaN! NaN count: {torch.isnan(log_prob).sum()}, stats - min: {log_prob.min()}, max: {log_prob.max()}, mean: {log_prob.mean()}")
+            logger.error(f"[PPOAgent.optim_preprocess] action stats - min: {action.min()}, max: {action.max()}, mean: {action.mean()}")
+        
         entropy = action_entropy(act_dist, log_prob)
+        
+        # Log NaN tracking for entropy
+        if torch.isnan(entropy).any():
+            logger.error(f"[PPOAgent.optim_preprocess] entropy contains NaN! NaN count: {torch.isnan(entropy).sum()}, stats - min: {entropy.min()}, max: {entropy.max()}, mean: {entropy.mean()}")
         if not all([x.ndim == 1 for x in [val, log_prob]]):
             raise ValueError('val, log_prob should be 1-dim!')
         processed_data = dict(
@@ -130,18 +205,78 @@ class PPOAgent:
 
     def cal_loss(self, val, old_val, ret, log_prob, old_log_prob,
                  adv, entropy, *args, **kwargs):
+        # Log NaN tracking for inputs to cal_loss
+        if torch.isnan(val).any():
+            logger.error(f"[PPOAgent.cal_loss] Input val contains NaN! NaN count: {torch.isnan(val).sum()}")
+        if torch.isnan(ret).any():
+            logger.error(f"[PPOAgent.cal_loss] Input ret contains NaN! NaN count: {torch.isnan(ret).sum()}")
+        if torch.isnan(log_prob).any():
+            logger.error(f"[PPOAgent.cal_loss] Input log_prob contains NaN! NaN count: {torch.isnan(log_prob).sum()}")
+        if torch.isnan(old_log_prob).any():
+            logger.error(f"[PPOAgent.cal_loss] Input old_log_prob contains NaN! NaN count: {torch.isnan(old_log_prob).sum()}")
+        if torch.isnan(adv).any():
+            logger.error(f"[PPOAgent.cal_loss] Input adv contains NaN! NaN count: {torch.isnan(adv).sum()}")
+        if torch.isnan(entropy).any():
+            logger.error(f"[PPOAgent.cal_loss] Input entropy contains NaN! NaN count: {torch.isnan(entropy).sum()}")
+        
         entropy = torch.mean(entropy)
+        
+        # Log NaN tracking for mean entropy
+        if torch.isnan(entropy):
+            logger.error(f"[PPOAgent.cal_loss] Mean entropy is NaN!")
+        
         vf_loss = self.cal_val_loss(val=val, old_val=old_val, ret=ret)
-        ratio = torch.exp(log_prob - old_log_prob)
+        
+        # Log NaN tracking for vf_loss
+        if torch.isnan(vf_loss):
+            logger.error(f"[PPOAgent.cal_loss] vf_loss is NaN! val stats - min: {val.min()}, max: {val.max()}, mean: {val.mean()}")
+            logger.error(f"[PPOAgent.cal_loss] ret stats - min: {ret.min()}, max: {ret.max()}, mean: {ret.mean()}")
+        
+        log_prob_diff = log_prob - old_log_prob
+        
+        # Log NaN tracking for log_prob difference
+        if torch.isnan(log_prob_diff).any():
+            logger.error(f"[PPOAgent.cal_loss] log_prob - old_log_prob contains NaN! NaN count: {torch.isnan(log_prob_diff).sum()}")
+            logger.error(f"[PPOAgent.cal_loss] log_prob_diff stats - min: {log_prob_diff.min()}, max: {log_prob_diff.max()}, mean: {log_prob_diff.mean()}")
+        
+        ratio = torch.exp(log_prob_diff)
+        
+        # Log NaN tracking for ratio
+        if torch.isnan(ratio).any():
+            logger.error(f"[PPOAgent.cal_loss] ratio (exp of log_prob_diff) contains NaN! NaN count: {torch.isnan(ratio).sum()}")
+            logger.error(f"[PPOAgent.cal_loss] ratio stats - min: {ratio.min()}, max: {ratio.max()}, mean: {ratio.mean()}")
+            logger.error(f"[PPOAgent.cal_loss] log_prob_diff that caused NaN ratio - min: {log_prob_diff.min()}, max: {log_prob_diff.max()}, mean: {log_prob_diff.mean()}")
+            logger.error(f"[PPOAgent.cal_loss] Extreme log_prob_diff values: min={log_prob_diff.min()}, max={log_prob_diff.max()}")
+        
         surr1 = adv * ratio
+        
+        # Log NaN tracking for surr1
+        if torch.isnan(surr1).any():
+            logger.error(f"[PPOAgent.cal_loss] surr1 (adv * ratio) contains NaN! NaN count: {torch.isnan(surr1).sum()}")
+        
         surr2 = adv * torch.clamp(ratio,
                                   1 - self.cfg.alg.clip_range,
                                   1 + self.cfg.alg.clip_range)
+        
+        # Log NaN tracking for surr2
+        if torch.isnan(surr2).any():
+            logger.error(f"[PPOAgent.cal_loss] surr2 contains NaN! NaN count: {torch.isnan(surr2).sum()}")
+        
         pg_loss = -torch.mean(torch.min(surr1, surr2))
+        
+        # Log NaN tracking for pg_loss
+        if torch.isnan(pg_loss):
+            logger.error(f"[PPOAgent.cal_loss] pg_loss is NaN! surr1 stats - min: {surr1.min()}, max: {surr1.max()}, mean: {surr1.mean()}")
+            logger.error(f"[PPOAgent.cal_loss] surr2 stats - min: {surr2.min()}, max: {surr2.max()}, mean: {surr2.mean()}")
 
         loss = pg_loss + vf_loss * self.cfg.alg.vf_coef
 
         loss = loss - entropy * self.cfg.alg.ent_coef
+        
+        # Log NaN tracking for final loss
+        if torch.isnan(loss):
+            logger.error(f"[PPOAgent.cal_loss] Final loss is NaN! pg_loss: {pg_loss}, vf_loss: {vf_loss}, entropy: {entropy}")
+            logger.error(f"[PPOAgent.cal_loss] vf_coef: {self.cfg.alg.vf_coef}, ent_coef: {self.cfg.alg.ent_coef}")
 
         with torch.no_grad():
             approx_kl = 0.5 * torch.mean(torch.pow(old_log_prob - log_prob, 2))

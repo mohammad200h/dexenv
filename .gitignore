@@ -137,3 +137,5 @@ outputs/
 *.obj
 *.stl
 *.STL
+*.zip
+

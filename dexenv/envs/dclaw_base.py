@@ -670,12 +670,27 @@ class DClawBase(VecTask):
         self.gym.refresh_actor_root_state_tensor(self.sim)
         self.gym.refresh_rigid_body_state_tensor(self.sim)
 
+        # Log NaN tracking for raw tensors after refresh
+        if torch.isnan(self.root_state_tensor).any():
+            logger.error(f"[compute_observations] root_state_tensor contains NaN after refresh! NaN count: {torch.isnan(self.root_state_tensor).sum()}")
+        if torch.isnan(self.dof_state).any():
+            logger.error(f"[compute_observations] dof_state contains NaN after refresh! NaN count: {torch.isnan(self.dof_state).sum()}")
+        if torch.isnan(self.rigid_body_states).any():
+            logger.error(f"[compute_observations] rigid_body_states contains NaN after refresh! NaN count: {torch.isnan(self.rigid_body_states).sum()}")
+
         if self.obs_type == "full_state":
             self.gym.refresh_force_sensor_tensor(self.sim)
             self.gym.refresh_dof_force_tensor(self.sim)
+            # Log NaN tracking for force sensors
+            if hasattr(self, 'dof_force_tensor') and torch.isnan(self.dof_force_tensor).any():
+                logger.error(f"[compute_observations] dof_force_tensor contains NaN after refresh! NaN count: {torch.isnan(self.dof_force_tensor).sum()}")
+            if hasattr(self, 'vec_sensor_tensor') and torch.isnan(self.vec_sensor_tensor).any():
+                logger.error(f"[compute_observations] vec_sensor_tensor contains NaN after refresh! NaN count: {torch.isnan(self.vec_sensor_tensor).sum()}")
 
         if self.cfg.env.rew.pen_tb_contact:
             self.gym.refresh_net_contact_force_tensor(self.sim)
+            if hasattr(self, 'net_contact_force') and torch.isnan(self.net_contact_force).any():
+                logger.error(f"[compute_observations] net_contact_force contains NaN after refresh! NaN count: {torch.isnan(self.net_contact_force).sum()}")
 
         self.object_pose = self.root_state_tensor[self.object_indices, 0:7]
         self.object_pos = self.root_state_tensor[self.object_indices, 0:3]
@@ -683,13 +698,47 @@ class DClawBase(VecTask):
         self.object_linvel = self.root_state_tensor[self.object_indices, 7:10]
         self.object_angvel = self.root_state_tensor[self.object_indices, 10:13]
 
+        # Log NaN tracking for object states
+        if torch.isnan(self.object_pose).any():
+            logger.error(f"[compute_observations] object_pose contains NaN! NaN count: {torch.isnan(self.object_pose).sum()}")
+        if torch.isnan(self.object_pos).any():
+            logger.error(f"[compute_observations] object_pos contains NaN! NaN count: {torch.isnan(self.object_pos).sum()}")
+        if torch.isnan(self.object_rot).any():
+            logger.error(f"[compute_observations] object_rot contains NaN! NaN count: {torch.isnan(self.object_rot).sum()}")
+        if torch.isnan(self.object_linvel).any():
+            logger.error(f"[compute_observations] object_linvel contains NaN! NaN count: {torch.isnan(self.object_linvel).sum()}")
+        if torch.isnan(self.object_angvel).any():
+            logger.error(f"[compute_observations] object_angvel contains NaN! NaN count: {torch.isnan(self.object_angvel).sum()}")
+
         self.goal_pose = self.goal_states[:, 0:7]
         self.goal_pos = self.goal_states[:, 0:3]
         self.goal_rot = self.goal_states[:, 3:7]
 
+        # Log NaN tracking for goal states
+        if torch.isnan(self.goal_pose).any():
+            logger.error(f"[compute_observations] goal_pose contains NaN! NaN count: {torch.isnan(self.goal_pose).sum()}")
+        if torch.isnan(self.goal_pos).any():
+            logger.error(f"[compute_observations] goal_pos contains NaN! NaN count: {torch.isnan(self.goal_pos).sum()}")
+        if torch.isnan(self.goal_rot).any():
+            logger.error(f"[compute_observations] goal_rot contains NaN! NaN count: {torch.isnan(self.goal_rot).sum()}")
+
         self.fingertip_state = self.rigid_body_states[:, self.fingertip_handles][:, :, 0:13]
         self.fingertip_pos = self.rigid_body_states[:, self.fingertip_handles][:, :, 0:3]
         self.fingertip_vel = self.rigid_body_states[:, self.fingertip_handles][:, :, 7:13]
+
+        # Log NaN tracking for fingertip states
+        if torch.isnan(self.fingertip_state).any():
+            logger.error(f"[compute_observations] fingertip_state contains NaN! NaN count: {torch.isnan(self.fingertip_state).sum()}")
+        if torch.isnan(self.fingertip_pos).any():
+            logger.error(f"[compute_observations] fingertip_pos contains NaN! NaN count: {torch.isnan(self.fingertip_pos).sum()}")
+        if torch.isnan(self.fingertip_vel).any():
+            logger.error(f"[compute_observations] fingertip_vel contains NaN! NaN count: {torch.isnan(self.fingertip_vel).sum()}")
+
+        # Log NaN tracking for DOF states
+        if torch.isnan(self.dclaw_dof_pos).any():
+            logger.error(f"[compute_observations] dclaw_dof_pos contains NaN! NaN count: {torch.isnan(self.dclaw_dof_pos).sum()}")
+        if torch.isnan(self.dclaw_dof_vel).any():
+            logger.error(f"[compute_observations] dclaw_dof_vel contains NaN! NaN count: {torch.isnan(self.dclaw_dof_vel).sum()}")
 
         if self.obs_type == "full_no_vel":
             obs_buf = self.compute_full_observations(no_vel=True)
@@ -700,6 +749,11 @@ class DClawBase(VecTask):
         else:
             print("Unkown observations type!")
         self.obs_buf = obs_buf
+        
+        # Log NaN tracking for final obs_buf
+        if torch.isnan(self.obs_buf).any():
+            logger.error(f"[compute_observations] obs_buf contains NaN! obs_buf shape: {self.obs_buf.shape}, NaN count: {torch.isnan(self.obs_buf).sum()}, NaN locations: {torch.isnan(self.obs_buf).nonzero()}")
+            logger.error(f"[compute_observations] obs_buf stats - min: {self.obs_buf.min()}, max: {self.obs_buf.max()}, mean: {self.obs_buf.mean()}")
 
         if self.cfg.rgb_render:
             self.gym.fetch_results(self.sim, True)
@@ -719,7 +773,18 @@ class DClawBase(VecTask):
             self.dclaw_dof_lower_limits,
             self.dclaw_dof_upper_limits
         )
+        
+        # Log NaN tracking for scaled_dof_pos
+        if torch.isnan(scaled_dof_pos).any():
+            logger.error(f"[compute_full_observations] scaled_dof_pos contains NaN! NaN count: {torch.isnan(scaled_dof_pos).sum()}")
+        
         quat_dist = quat_mul(self.object_rot, quat_conjugate(self.goal_rot))
+        
+        # Log NaN tracking for quat_dist
+        if torch.isnan(quat_dist).any():
+            logger.error(f"[compute_full_observations] quat_dist contains NaN! NaN count: {torch.isnan(quat_dist).sum()}")
+            logger.error(f"[compute_full_observations] object_rot stats - min: {self.object_rot.min()}, max: {self.object_rot.max()}, mean: {self.object_rot.mean()}")
+            logger.error(f"[compute_full_observations] goal_rot stats - min: {self.goal_rot.min()}, max: {self.goal_rot.max()}, mean: {self.goal_rot.mean()}")
 
         if no_vel:
             out = torch.cat(
@@ -748,31 +813,73 @@ class DClawBase(VecTask):
                 ],
                 dim=-1
             )
+        
+        # Log NaN tracking for final output
+        if torch.isnan(out).any():
+            logger.error(f"[compute_full_observations] Output contains NaN! out shape: {out.shape}, NaN count: {torch.isnan(out).sum()}")
+        
         return out
 
     def compute_full_state(self):
         obs_buf = self.compute_full_observations()
         obs_no_actions = obs_buf[:, :-9]
         actions = obs_buf[:, -9:]
+        
+        # Log NaN tracking for force tensors
+        if torch.isnan(self.dof_force_tensor).any():
+            logger.error(f"[compute_full_state] dof_force_tensor contains NaN! NaN count: {torch.isnan(self.dof_force_tensor).sum()}")
+        if torch.isnan(self.vec_sensor_tensor).any():
+            logger.error(f"[compute_full_state] vec_sensor_tensor contains NaN! NaN count: {torch.isnan(self.vec_sensor_tensor).sum()}")
+        
+        scaled_dof_force = self.force_torque_obs_scale * self.dof_force_tensor
+        scaled_sensor = self.force_torque_obs_scale * self.vec_sensor_tensor
+        
+        if torch.isnan(scaled_dof_force).any():
+            logger.error(f"[compute_full_state] scaled_dof_force contains NaN! NaN count: {torch.isnan(scaled_dof_force).sum()}")
+        if torch.isnan(scaled_sensor).any():
+            logger.error(f"[compute_full_state] scaled_sensor contains NaN! NaN count: {torch.isnan(scaled_sensor).sum()}")
+        
         out = torch.cat(
             [
                 obs_no_actions,
-                self.force_torque_obs_scale * self.dof_force_tensor,
-                self.force_torque_obs_scale * self.vec_sensor_tensor,
+                scaled_dof_force,
+                scaled_sensor,
                 actions
             ],
             dim=-1
         )
+        
+        # Log NaN tracking for final output
+        if torch.isnan(out).any():
+            logger.error(f"[compute_full_state] Output contains NaN! out shape: {out.shape}, NaN count: {torch.isnan(out).sum()}")
 
         return out
 
     def update_obs(self):
+        # Log NaN tracking before randomization
+        if torch.isnan(self.obs_buf).any():
+            logger.error(f"[update_obs] obs_buf contains NaN before randomization! NaN count: {torch.isnan(self.obs_buf).sum()}")
+        
         if self.randomize:
             self.obs_buf = self.dr_randomizations['observations']['noise_lambda'](self.obs_buf)
+            # Log NaN tracking after randomization
+            if torch.isnan(self.obs_buf).any():
+                logger.error(f"[update_obs] obs_buf contains NaN after randomization! NaN count: {torch.isnan(self.obs_buf).sum()}")
 
-        self.obs_dict["ob"] = torch.clamp(self.obs_buf, -self.clip_obs, self.clip_obs).to(self.rl_device)
+        clamped_obs = torch.clamp(self.obs_buf, -self.clip_obs, self.clip_obs)
+        self.obs_dict["ob"] = clamped_obs.to(self.rl_device)
+        
+        # Log NaN tracking after clamping
+        if torch.isnan(self.obs_dict["ob"]).any():
+            logger.error(f"[update_obs] obs_dict['ob'] contains NaN after clamping! NaN count: {torch.isnan(self.obs_dict['ob']).sum()}")
+            logger.error(f"[update_obs] obs_dict['ob'] stats - min: {self.obs_dict['ob'].min()}, max: {self.obs_dict['ob'].max()}, mean: {self.obs_dict['ob'].mean()}")
+            logger.error(f"[update_obs] clip_obs value: {self.clip_obs}")
+        
         if self.num_states > 0:
-            self.obs_dict["state"] = self.get_state()
+            state = self.get_state()
+            if torch.isnan(state).any():
+                logger.error(f"[update_obs] state contains NaN! NaN count: {torch.isnan(state).sum()}")
+            self.obs_dict["state"] = state
         return self.obs_dict
 
     def reset_target_pose(self, env_ids, apply_reset=False):
@@ -863,6 +970,11 @@ class DClawBase(VecTask):
         return rgb_obs_buf
 
     def pre_physics_step(self, actions):
+        # Log NaN tracking for incoming actions
+        if torch.isnan(actions).any():
+            logger.error(f"[pre_physics_step] Input actions contain NaN! actions shape: {actions.shape}, NaN count: {torch.isnan(actions).sum()}, NaN locations: {torch.isnan(actions).nonzero()}")
+            logger.error(f"[pre_physics_step] Input actions stats - min: {actions.min()}, max: {actions.max()}, mean: {actions.mean()}")
+        
         env_ids = self.reset_buf.nonzero(as_tuple=False).squeeze(-1)
         goal_env_ids = self.reset_goal_buf.nonzero(as_tuple=False).squeeze(-1)
 
@@ -875,6 +987,10 @@ class DClawBase(VecTask):
             self.reset_idx(env_ids, goal_env_ids)
 
         self.actions = actions.clone().to(self.device)
+        
+        # Log NaN tracking for stored actions
+        if torch.isnan(self.actions).any():
+            logger.error(f"[pre_physics_step] Stored self.actions contain NaN! actions shape: {self.actions.shape}, NaN count: {torch.isnan(self.actions).sum()}")
 
         if self.cfg.env.action_ema is not None:
             self.action_ema_val[env_ids] = 0
@@ -1010,6 +1126,8 @@ class LeapXelaBase(DClawBase):
         rb_links = self.gym.get_asset_rigid_body_names(leapXela_asset)
         self.fingertips = [x for x in rb_links if '_Marker' in x]  # ["one_tip_link", "two_tip_link", "three_tip_link"]
         self.num_fingertips = len(self.fingertips)
+        if self.num_fingertips == 0:
+            raise ValueError("No fingertips found in the asset")
 
         print(f'Number of fingertips:{self.num_fingertips}  Fingertips:{self.fingertips}')
 
@@ -1083,12 +1201,141 @@ class LeapXelaBase(DClawBase):
         return leapXela_asset, leapXela_dof_props
     def get_dclaw_start_pose(self):
         dclaw_start_pose = gymapi.Transform()
-        dclaw_start_pose.p = gymapi.Vec3(*get_axis_params(0.25, self.up_axis_idx))
-        # Rotate -90 degrees around X-axis
-        quat_x = gymapi.Quat.from_axis_angle(gymapi.Vec3(1, 0, 0), np.pi/2)
-        
-
-        dclaw_start_pose.r = quat_x 
         return dclaw_start_pose
+    
 
+
+class LeapHandBase(DClawBase):
+
+    def get_dclaw_asset(self, asset_root=None, asset_options=None):
+        # load leapXela asset
+        if asset_options is None:
+            asset_options = gymapi.AssetOptions()
+            asset_options.flip_visual_attachments = False
+            asset_options.fix_base_link = True
+            asset_options.collapse_fixed_joints = False
+            asset_options.disable_gravity = False
+            asset_options.thickness = 0.001
+            asset_options.angular_damping = 0.01
+            asset_options.override_inertia = True
+            asset_options.override_com = True
+            logger.info(f'VHACD:{self.cfg.env.vhacd}')
+            if self.cfg.env.vhacd:
+                asset_options.convex_decomposition_from_submeshes = True
+            if self.cfg.physics_engine == "physx":
+                # if self.physics_engine == gymapi.SIM_PHYSX:
+                asset_options.use_physx_armature = True
+            asset_options.default_dof_drive_mode = gymapi.DOF_MODE_POS
+
+        if asset_root is None:
+            asset_root = dexenv.LIB_PATH.joinpath('assets', 'leap_hand').as_posix()
+        robot_name = self.cfg.env.robot
+        # For LEAP XELA, the robot file is always robot.xml in the leapXELA_model directory
+        # robot_file = f"{robot_name}.xml"
+        robot_file = f"{robot_name}.urdf"
+
+        leapXela_asset = self.gym.load_asset(self.sim, asset_root, robot_file, asset_options)
+        print(f'LeapXela asset root:{asset_root} robot name:{robot_name}')
+
+        self.num_dclaw_bodies = self.gym.get_asset_rigid_body_count(leapXela_asset)
+        self.num_dclaw_shapes = self.gym.get_asset_rigid_shape_count(leapXela_asset)
+        self.num_dclaw_dofs = self.gym.get_asset_dof_count(leapXela_asset)
+
+        print(f'LeapXela:')
+        print(f'\t Number of bodies: {self.num_dclaw_bodies}')
+        print(f'\t Number of shapes: {self.num_dclaw_shapes}')
+        print(f'\t Number of dofs: {self.num_dclaw_dofs}')
+
+        self.dclaw_asset_dof_dict = self.gym.get_asset_dof_dict(leapXela_asset)
+        # Sort the dictionary by DOF indices to ensure ascending order
+        sorted_dof_items = sorted(self.dclaw_asset_dof_dict.items(), key=lambda x: x[1])
+        self.dclaw_asset_dof_dict = dict(sorted_dof_items)
+        joint_names = self.dclaw_asset_dof_dict.keys()
+        logger.info(f'Joint names:{joint_names}')
+
+        self.dof_joint_indices = list(self.dclaw_asset_dof_dict.values())
+        dinds = np.array(self.dof_joint_indices)
+        assert np.all(np.diff(dinds) > 0)  # check if it's in a sorted order (ascending)
+
+        rb_links = self.gym.get_asset_rigid_body_names(leapXela_asset)
+        self.fingertips = [x for x in rb_links if '_Marker' in x]  # ["one_tip_link", "two_tip_link", "three_tip_link"]
+        self.num_fingertips = len(self.fingertips)
+        if self.num_fingertips == 0:
+            raise ValueError("No fingertips found in the asset")
+
+        print(f'Number of fingertips:{self.num_fingertips}  Fingertips:{self.fingertips}')
+
+        print(f'Actuator   ---  DoF Index')
+        for act_name, act_index in zip(joint_names, self.dof_joint_indices):
+            print(f'\t {act_name}   {act_index}')
+
+        leapXela_dof_props = self.gym.get_asset_dof_properties(leapXela_asset)
+
+        def set_dof_prop(props, prop_name, val):
+            if np.isscalar(val):
+                props[prop_name].fill(val)
+            elif len(val) == 3:
+                props[prop_name] = np.array(list(val) * int(len(props[prop_name]) / 3))
+            # LeapXela has 4 fingertips
+            elif len(val)== 4:
+                props[prop_name] = np.array(list(val) * int(len(props[prop_name]) / 4)) 
+            else:
+                props[prop_name] = np.array(val)
+
+        if self.cfg["env"]["dof_vel_hard_limit"] is not None:
+            vel_hard_limit = self.cfg["env"]["dof_vel_hard_limit"] if not self.cfg.env.soft_control else self.cfg["env"]["soft_dof_vel_hard_limit"]
+            print(f'Setting DOF velocity limit to:{vel_hard_limit}')
+            set_dof_prop(leapXela_dof_props, 'velocity', vel_hard_limit)
+        if self.cfg["env"]["effort_limit"] is not None:
+            effort_limit = self.cfg["env"]["effort_limit"] if not self.cfg.env.soft_control else self.cfg["env"]["soft_effort_limit"]
+            print(f'Setting DOF effort limit to:{effort_limit}')
+            set_dof_prop(leapXela_dof_props, 'effort', effort_limit)
+        if self.cfg["env"]["stiffness"] is not None:
+            stiffness = self.cfg["env"]["stiffness"] if not self.cfg.env.soft_control else self.cfg["env"]["soft_stiffness"]
+            print(f'Setting stiffness to:{stiffness}')
+            set_dof_prop(leapXela_dof_props, 'stiffness', stiffness)
+        if self.cfg["env"]["damping"] is not None:
+            damping = self.cfg["env"]["damping"] if not self.cfg.env.soft_control else self.cfg["env"]["soft_damping"]
+            print(f'Setting damping to:{damping}')
+            set_dof_prop(leapXela_dof_props, 'damping', damping)
+
+        self.dclaw_dof_lower_limits = []
+        self.dclaw_dof_upper_limits = []
+
+        self.dclaw_default_dof_states = np.zeros(self.num_dclaw_dofs, dtype=gymapi.DofState.dtype)
+        self.dclaw_default_dof_pos = self.dclaw_default_dof_states['pos']
+        self.dclaw_default_dof_vel = self.dclaw_default_dof_states['vel']
+        for i in range(self.num_dclaw_dofs):
+            self.dclaw_dof_lower_limits.append(leapXela_dof_props['lower'][i])
+            self.dclaw_dof_upper_limits.append(leapXela_dof_props['upper'][i])
+            if i % 3 == 1:
+                self.dclaw_default_dof_pos[i] = 0.8
+            elif i % 3 == 2:
+                self.dclaw_default_dof_pos[i] = -1.1
+            else:
+                self.dclaw_default_dof_pos[i] = 0.
+            self.dclaw_default_dof_vel[i] = 0.0
+
+        self.dof_joint_indices = to_torch(self.dof_joint_indices, dtype=torch.long, device=self.device)
+        self.dclaw_dof_lower_limits = to_torch(self.dclaw_dof_lower_limits, device=self.device)
+        self.dclaw_dof_upper_limits = to_torch(self.dclaw_dof_upper_limits, device=self.device)
+        self.dclaw_default_dof_pos = to_torch(self.dclaw_default_dof_pos, device=self.device)
+        self.dclaw_default_dof_vel = to_torch(self.dclaw_default_dof_vel, device=self.device)
+
+        self.fingertip_handles = [self.gym.find_asset_rigid_body_index(leapXela_asset, name) for name in
+                                  self.fingertips]
+
+        leapXela_asset_props = self.gym.get_asset_rigid_shape_properties(leapXela_asset)
+        for p in leapXela_asset_props:
+            p.friction = self.cfg.env.hand.friction
+            p.torsion_friction = self.cfg.env.hand.torsion_friction
+            p.rolling_friction = self.cfg.env.hand.rolling_friction
+            p.restitution = self.cfg.env.hand.restitution
+        self.gym.set_asset_rigid_shape_properties(leapXela_asset, leapXela_asset_props)
+        return leapXela_asset, leapXela_dof_props
+    def get_dclaw_start_pose(self):
+        dclaw_start_pose = gymapi.Transform()
+        dclaw_start_pose.p = gymapi.Vec3(*get_axis_params(0.2, self.up_axis_idx))
+        dclaw_start_pose.r = gymapi.Quat.from_axis_angle(gymapi.Vec3(0, 0, 1), -np.pi/2)
+        return dclaw_start_pose
     
