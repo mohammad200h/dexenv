@@ -1,0 +1,395 @@
+<?xml version="1.0" ?>
+<!-- Generated using onshape-to-robot -->
+<!-- Onshape https://cad.onshape.com/documents/8570a76a8c0c31c84724c6f7/w/72ba6e2072d2b92f117e67a0/e/b5b8d162590c6484df5b91e8 -->
+<mujoco model="leapXELA">
+  <compiler angle="radian" meshdir="assets" autolimits="true"/>
+  <default>
+    <default class="leapXELA">
+      <joint frictionloss="0.1" armature="0.005"/>
+      <position kp="50" dampratio="1"/>
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+      </default>
+      <default class="collision">
+        <geom type="box" group="3" material="col"/>
+      </default>
+    </default>
+    <default class="marker">
+      <geom type="sphere" mass= "0.00001"  
+      group="4" contype="0" conaffinity="0" 
+      size="0.005" material="marker"/>
+    </default>
+  </default>
+  <worldbody>
+    <!-- Link leap_hand_xela_back_cover -->
+    <body name="leap_hand_xela_back_cover" pos="0 0 0" quat="1 0 0 0" childclass="leapXELA">
+      <inertial pos="0.00388456 -0.00321858 0.0893448" mass="2.5376" fullinertia="0.00587523 0.00767916 0.00348841 9.4314e-05 -0.000410847 0.00018544"/>
+      
+      <!-- Part leap_hand_xela_motorholder -->
+      <geom type="mesh" class="visual" pos="0.0180627 0.023 0.0834096" quat="7.73061e-18 0.707107 0 -0.707107" mesh="leap_hand_xela_motorholder" material="leap_hand_xela_motorholder_material"/>
+  
+      <!-- Part uspa46 -->
+      <geom type="mesh" class="visual" pos="-0.005515 -0.027 0.0631" quat="1.11022e-16 -2.02699e-16 -1.11022e-16 -1" mesh="uspa46" material="uspa46_material"/>
+      
+      <!-- Part thp0_unified -->
+      <geom type="mesh" class="visual" pos="0.0235627 -0.013 0.0845" quat="0.707107 -3.84621e-15 -3.66374e-15 0.707107" mesh="thp0_unified" material="thp0_unified_material"/>
+      
+      <!-- Part p5_unified -->
+      <geom type="mesh" class="visual" pos="-0.03767 -0.009 0.1306" quat="0.5 0.5 -0.5 0.5" mesh="p5_unified" material="p5_unified_material"/>
+      <geom class="collision" pos="-0.038 -0.002 0.14" euler="0 0 0" size="0.015 0.023 0.015" />
+      <geom class="collision" pos="-0.038 -0.026 0.1414" euler="0 0 0" size="0.015 0.005 0.0125" />
+
+      <!-- Part top_palm -->
+      <geom type="mesh" class="visual" pos="0.00785 -0.023 0.123706" quat="5.44009e-15 -4.77641e-18 1 -1.9082e-16" mesh="top_palm" material="top_palm_material"/>
+      
+      
+      <!-- Part p5_unified_2 -->
+      <geom type="mesh" class="visual" pos="0.00778 -0.009 0.1306" quat="0.5 0.5 -0.5 0.5" mesh="p5_unified" material="p5_unified_material"/>
+      <geom class="collision" pos="0.00745 -0.002 0.14" euler="0 0 0" size="0.015 0.023 0.015" />
+      <geom class="collision" pos="0.00745 -0.026 0.1414" euler="0 0 0" size="0.015 0.005 0.0125" />
+      
+      
+      <!-- Part uspa46_2 -->
+      <geom type="mesh" class="visual" pos="-0.005515 -0.027 0.0962" quat="1.11022e-16 -2.02699e-16 -1.11022e-16 -1" mesh="uspa46" material="uspa46_material"/>
+     
+      <!-- Part p5_unified_3 -->
+      <geom type="mesh" class="visual" pos="0.05323 -0.009 0.1306" quat="0.5 0.5 -0.5 0.5" mesh="p5_unified" material="p5_unified_material"/>
+      <geom class="collision" pos="0.0529 -0.002 0.14" euler="0 0 0" size="0.015 0.023 0.015" />
+      <geom class="collision" pos="0.0529 -0.026 0.1414" euler="0 0 0" size="0.015 0.005 0.0125" />
+      
+      <!-- Part uspa46_3 -->
+      <geom type="mesh" class="visual" pos="0.044015 -0.027 0.0962" quat="1.04466e-17 -1 4.83299e-17 2.02699e-16" mesh="uspa46" material="uspa46_material"/>
+      
+      <!-- Part leap_hand_xela_back_cover -->
+      <geom type="mesh" class="visual" pos="-0.0293149 0.023 0.131221" quat="0.707107 -2.32148e-18 -0.707107 0" mesh="leap_hand_xela_back_cover" material="leap_hand_xela_back_cover_material"/>
+      
+      <!-- Part leap_hand_xela_side_cover -->
+      <geom type="mesh" class="visual" pos="-0.0503368 1.249e-16 0.110009" quat="0.707104 0.707104 0.00183435 -0.00183435" mesh="leap_hand_xela_side_cover" material="leap_hand_xela_side_cover_material"/>
+     
+      <!-- Part leap_hand_xela_bottom -->
+      <geom type="mesh" class="visual" pos="0 -0.023 0.0425" quat="0 0 -1 -1.66533e-16" mesh="leap_hand_xela_bottom" material="leap_hand_xela_bottom_material"/>
+     
+      <!-- Part palm_face -->
+      <geom type="mesh" class="visual" pos="-0.0283776 -0.029 0.131221" quat="0.707107 -2.32148e-18 -0.707107 0" mesh="palm_face" material="palm_face_material"/>
+      
+      <geom class="collision" pos="-0.012 0 0.1" size="0.035 0.03 0.02"/>
+      <geom class="collision" pos="-0.003 0 0.06" size="0.025 0.03 0.02"/>
+      <geom class="collision" pos="-0.037 0 0.08" euler="0 1.28 0" size="0.04 0.03 0.01"/>
+
+      <geom class="collision" pos="0.036 -0.025 0.1" size="0.035 0.005 0.02"/>
+      <geom class="collision" pos="0.036 0.025 0.1" size="0.035 0.005 0.02"/>
+      <geom class="collision" pos="0.036 0 0.115" size="0.035 0.03 0.005"/>
+
+
+      <geom class="collision" pos="0.039 -0.013 0.085" euler="0 0 0" size="0.02 0.012  0.015" />
+
+      <geom class="collision" pos="-0.0055 -0.028 0.063" size="0.023 0.004 0.015"/>
+      <geom class="collision" pos="-0.0055 -0.028 0.096" size="0.023 0.004 0.015"/>
+      <geom class="collision" pos=" 0.044 -0.028 0.096" size="0.023 0.004 0.015"/>
+<!-- 
+      <geom class="collision" type="cylinder" pos="0 0 0.02" size="0.02 0.02"/>
+      <geom class="collision" type="cylinder" pos="0 0 0.005" size="0.035 0.005"/> -->
+
+
+
+      <geom class="collision" pos="0.0529 -0.003 0.12" euler="0 0 0" size="0.012 0.011 0.005" />
+      <geom class="collision" pos="0.008 -0.003 0.12" euler="0 0 0" size="0.012 0.011 0.005" />
+      <geom class="collision" pos="-0.0375 -0.003 0.12" euler="0 0 0" size="0.012 0.011 0.005" />
+
+      <!-- Link p4_unified -->
+      <body name="p4_unified" pos="-0.02317 -0.0165 0.1436" quat="4.51379e-17 0.707107 -0 0.707107">
+        <!-- Joint from leap_hand_xela_back_cover to p4_unified -->
+        <joint axis="0 0 1" name="rf_mcp" type="hinge" range="-0.3141592653589784 2.2340214425527427"/>
+        <inertial pos="0.0342889 -0.0265621 -0.0145004" mass="0.231014" fullinertia="4.51947e-05 6.85417e-05 7.22479e-05 1.48097e-05 1.17419e-06 -1.19534e-06"/>
+        <!-- Part p4_unified -->
+        <geom type="mesh" class="visual" pos="0.0048 -6.93889e-18 -0.0145" quat="0.5 0.5 0.5 -0.5" 
+        mesh="p4_unified" material="p4_unified_material"/>
+        <geom class="collision" pos="0.013 -0.016 0.0015" euler="0 0 -0.95" size="0.03 0.01 0.0025" />
+        <geom class="collision" pos="-0.0005 -0.0 0.0055" euler="0 0 0" size="0.003 0.01 0.002" />
+        <geom class="collision" pos="0.013 -0.016 -0.0305" euler="0 0 -0.95" size="0.03 0.01 0.0025" />
+        <geom class="collision" pos="0.04 -0.031 -0.015" euler="0 0 0.0" size="0.02 0.016 0.015" />
+        <!-- Link p3_unified -->
+        <body name="p3_unified" pos="0.0326 -0.0123 -0.0145" quat="0.5 -0.5 -0.5 -0.5">
+          <!-- Joint from p4_unified to p3_unified -->
+          <joint axis="0 0 1" name="rf_rot" type="hinge" range="-1.0471975511965976 1.0471975511965976"/>
+          <inertial pos="-0.000258994 0.00848001 0.0133488" mass="0.158071" fullinertia="2.31878e-05 1.74843e-05 2.31495e-05 -1.07668e-07 -9.95794e-08 -1.12128e-06"/>
+          <!-- Part p3_unified -->
+          <geom type="mesh" class="visual" pos="0 0.0075 -8.67362e-19" quat="0.5 -0.5 -0.5 -0.5" 
+          mesh="p3_unified" material="p3_unified_material"/>
+          <geom class="collision" pos="0.0 0.0072 0.011" euler="0 0 0.0" size="0.015 0.0175 0.012" />
+          <geom class="collision" pos="0.0 0.0127 0.023" euler="0 0 0.0" size="0.015 0.013 0.005" />
+          <!-- Link p2_unified -->
+          <body name="p2_unified" pos="0.0145 0.015 0.013" quat="0.5 0.5 0.5 0.5">
+            <!-- Joint from p3_unified to p2_unified -->
+            <joint axis="0 0 1" name="rf_pip" type="hinge" range="-0.506145483078337 1.8849555921538945"/>
+            <inertial pos="0.0304899 -0.00688132 -0.0146269" mass="0.232602" fullinertia="5.30625e-05 4.56759e-05 5.89736e-05 3.70526e-06 1.23454e-06 -6.30317e-07"/>
+            <!-- Part p2_unified -->
+            <geom type="mesh" class="visual" pos="0.00905 -6.93889e-18 -0.0145" quat="0.5 0.5 0.5 -0.5" 
+            mesh="p2_unified" material="p2_unified_material"/>
+            <geom class="collision" pos="0.02 -0.009 0.0015" euler="0 0 -0.95" size="0.02 0.01 0.004" />
+            <!-- <geom class="collision" type="cylinder" pos="0.0 0 0.0035" size="0.008 0.005 " /> -->
+            <geom class="collision" pos="0.02 -0.009 -0.0305" euler="0 0 -0.95" size="0.02 0.01 0.004" />
+            <!-- <geom class="collision" type="cylinder" pos="0.0 0 -0.03" size="0.008 0.003 " /> -->
+            <geom class="collision" pos="0.033 -0.011 -0.0145" euler="0 0 0" size="0.015 0.02 0.014" />
+            <geom class="collision" pos="0.0331 0.0105 -0.0145" euler="0 0 0" size="0.0122 0.004 0.014" />
+            <!-- Link fingertop_unfied -->
+            <body name="fingertop_unfied" pos="0.0361 -1.11022e-16 -0.0291" quat="0.707107 -2.30991e-16 4.44089e-16 0.707107">
+              <!-- Joint from p2_unified to fingertop_unfied -->
+              <joint axis="0 0 1" name="rf_dip" type="hinge" range="-0.3665191429188092 2.0420352248333655"/>
+              <inertial pos="-0.00193531 -0.0359351 0.0145854" mass="0.25168" fullinertia="7.05202e-05 3.63661e-05 6.58529e-05 1.03034e-06 -1.87024e-07 -1.07782e-06"/>
+              <!-- Part fingertop_unfied -->
+              <geom type="mesh" class="visual" pos="-0.00135925 -0.025 0.0145" quat="0.5 -0.5 -0.5 -0.5" 
+              mesh="fingertop_unfied" material="fingertop_unfied_material"/>
+              <geom class="collision" pos="0.0 -0.009 -0.001" euler="0 0 1.57" size="0.017 0.01 0.004" />
+              <geom class="collision" pos="0.0 -0.009  0.03"  euler="0 0 1.57" size="0.017 0.01 0.004" />
+              <geom class="collision" pos="-0.0005 0.0 0.035" euler="0 0 0" size="0.01 0.002 0.002" />
+              <geom class="collision" pos="-0.016 -0.0325 0.015" euler="0 0 0" size="0.006 0.022 0.015" />
+
+              <geom class="collision"  type="mesh" pos="-0.0009 -0.025 0.0145"
+               euler="-1.57 0 -1.57" mesh="outer_skin_v1_3_1"/>
+    
+              <geom name="RF_Marker" class="marker" pos="0.014 -0.045 0.0145" />
+            </body>
+          </body>
+        </body>
+      </body>
+      <!-- Link p4_unified_2 -->
+      <body name="p4_unified_2" pos="0.02228 -0.0165 0.1436" quat="4.51379e-17 0.707107 -0 0.707107">
+        <!-- Joint from leap_hand_xela_back_cover to p4_unified_2 -->
+        <joint axis="0 0 1" name="mf_mcp" type="hinge" range="-0.3141592653589793 2.234021442552742"/>
+        <inertial pos="0.0342889 -0.0265621 -0.0145004" mass="0.231014" fullinertia="4.51947e-05 6.85417e-05 7.22479e-05 1.48097e-05 1.17419e-06 -1.19534e-06"/>
+        <!-- Part p4_unified_2 -->
+        <geom type="mesh" class="visual" pos="0.0048 -3.46945e-18 -0.0145" quat="0.5 0.5 0.5 -0.5" mesh="p4_unified" material="p4_unified_material"/>
+        <geom class="collision" pos="0.013 -0.016 0.0015" euler="0 0 -0.95" size="0.03 0.01 0.0025" />
+        <geom class="collision" pos="-0.0005 -0.0 0.0055" euler="0 0 0" size="0.003 0.01 0.002" />
+        <geom class="collision" pos="0.013 -0.016 -0.0305" euler="0 0 -0.95" size="0.03 0.01 0.0025" />
+        <geom class="collision" pos="0.04 -0.031 -0.015" euler="0 0 0.0" size="0.02 0.016 0.015" />
+        <!-- Link p3_unified_2 -->
+        <body name="p3_unified_2" pos="0.0326 -0.0123 -0.0145" quat="0.5 -0.5 -0.5 -0.5">
+          <!-- Joint from p4_unified_2 to p3_unified_2 -->
+          <joint axis="0 0 1" name="mf_rot" type="hinge" range="-1.0471975511965976 1.0471975511965976"/>
+          <inertial pos="-0.000258994 0.00848001 0.0133488" mass="0.158071" fullinertia="2.31878e-05 1.74843e-05 2.31495e-05 -1.07668e-07 -9.95794e-08 -1.12128e-06"/>
+          <!-- Part p3_unified_2 -->
+          <geom type="mesh" class="visual" pos="-8.67362e-19 0.0075 -8.67362e-19" quat="0.5 -0.5 -0.5 -0.5" mesh="p3_unified" material="p3_unified_material"/>
+          <geom class="collision" pos="0.0 0.0072 0.011" euler="0 0 0.0" size="0.015 0.0175 0.012" />
+          <geom class="collision" pos="0.0 0.0127 0.023" euler="0 0 0.0" size="0.015 0.013 0.005" />
+          <!-- Link p2_unified_2 -->
+          <body name="p2_unified_2" pos="0.0145 0.015 0.013" quat="0.5 0.5 0.5 0.5">
+            <!-- Joint from p3_unified_2 to p2_unified_2 -->
+            <joint axis="0 0 1" name="mf_pip" type="hinge" range="-0.506145483078337 1.8849555921538945"/>
+            <inertial pos="0.0304899 -0.00688132 -0.0146269" mass="0.232602" fullinertia="5.30625e-05 4.56759e-05 5.89736e-05 3.70526e-06 1.23454e-06 -6.30317e-07"/>
+            <!-- Part p2_unified_2 -->
+            <geom type="mesh" class="visual" pos="0.00905 -1.04083e-17 -0.0145" quat="0.5 0.5 0.5 -0.5" mesh="p2_unified" material="p2_unified_material"/>
+            <geom class="collision" pos="0.02 -0.009 0.0015" euler="0 0 -0.95" size="0.02 0.01 0.004" />
+            <!-- <geom class="collision" type="cylinder" pos="0.0 0 0.0035" size="0.008 0.005 " /> -->
+            <geom class="collision" pos="0.02 -0.009 -0.0305" euler="0 0 -0.95" size="0.02 0.01 0.004" />
+            <!-- <geom class="collision" type="cylinder" pos="0.0 0 -0.03" size="0.008 0.003 " /> -->
+            <geom class="collision" pos="0.033 -0.011 -0.0145" euler="0 0 0" size="0.015 0.02 0.014" />
+            <geom class="collision" pos="0.0331 0.0105 -0.0145" euler="0 0 0" size="0.0122 0.004 0.014" />
+            
+            <!-- Link fingertop_unfied_2 -->
+            <body name="fingertop_unfied_2" pos="0.0361 -1.14492e-16 -0.0291" quat="0.707107 -2.30991e-16 4.44089e-16 0.707107">
+              <!-- Joint from p2_unified_2 to fingertop_unfied_2 -->
+              <joint axis="0 0 1" name="mf_dip" type="hinge" range="-0.3665191429188092 2.0420352248333655"/>
+              <inertial pos="-0.00193531 -0.0359351 0.0145854" mass="0.25168" fullinertia="7.05202e-05 3.63661e-05 6.58529e-05 1.03034e-06 -1.87024e-07 -1.07782e-06"/>
+              <!-- Part fingertop_unfied_2 -->
+              <geom type="mesh" class="visual" pos="-0.00135925 -0.025 0.0145" quat="0.5 -0.5 -0.5 -0.5" mesh="fingertop_unfied" material="fingertop_unfied_material"/>
+              <geom class="collision" pos="0.0 -0.009 -0.001" euler="0 0 1.57" size="0.017 0.01 0.004" />
+              <geom class="collision" pos="0.0 -0.009  0.03"  euler="0 0 1.57" size="0.017 0.01 0.004" />
+              <geom class="collision" pos="-0.0005 0.0 0.035" euler="0 0 0" size="0.01 0.002 0.002" />
+              <geom class="collision" pos="-0.016 -0.0325 0.015" euler="0 0 0" size="0.006 0.022 0.015" />
+
+              <geom class="collision"  type="mesh" pos="-0.0009 -0.025 0.0145"
+               euler="-1.57 0 -1.57" mesh="outer_skin_v1_3_1"/>
+
+              <geom name="MF_Marker" class="marker" pos="0.014 -0.045 0.0145" />
+
+            </body>
+          </body>
+        </body>
+      </body>
+      <!-- Link p4_unified_3 -->
+      <body name="p4_unified_3" pos="0.06773 -0.0165 0.1436" quat="4.51379e-17 0.707107 -0 0.707107">
+        <!-- Joint from leap_hand_xela_back_cover to p4_unified_3 -->
+        <joint axis="0 0 1" name="if_mcp" type="hinge" range="-0.3141592653589793 2.234021442552742"/>
+        <inertial pos="0.0342889 -0.0265621 -0.0145004" mass="0.231014" fullinertia="4.51947e-05 6.85417e-05 7.22479e-05 1.48097e-05 1.17419e-06 -1.19534e-06"/>
+        <!-- Part p4_unified_3 -->
+        <geom type="mesh" class="visual" pos="0.0048 -6.93889e-18 -0.0145" quat="0.5 0.5 0.5 -0.5" mesh="p4_unified" material="p4_unified_material"/>
+        <geom class="collision" pos="0.013 -0.016 0.0015" euler="0 0 -0.95" size="0.03 0.01 0.0025" />
+        <geom class="collision" pos="-0.0005 -0.0 0.0055" euler="0 0 0" size="0.003 0.01 0.002" />
+        <geom class="collision" pos="0.013 -0.016 -0.0305" euler="0 0 -0.95" size="0.03 0.01 0.0025" />
+        <geom class="collision" pos="0.04 -0.031 -0.015" euler="0 0 0.0" size="0.02 0.016 0.015" />
+        <!-- Link p3_unified_3 -->
+        <body name="p3_unified_3" pos="0.0326 -0.0123 -0.0145" quat="0.5 -0.5 -0.5 -0.5">
+          <!-- Joint from p4_unified_3 to p3_unified_3 -->
+          <joint axis="0 0 1" name="if_rot" type="hinge" range="-1.0471975511965976 1.0471975511965976"/>
+          <inertial pos="-0.000258994 0.00848001 0.0133488" mass="0.158071" fullinertia="2.31878e-05 1.74843e-05 2.31495e-05 -1.07668e-07 -9.95794e-08 -1.12128e-06"/>
+          <!-- Part p3_unified_3 -->
+          <geom type="mesh" class="visual" pos="0 0.0075 -8.67362e-19" quat="0.5 -0.5 -0.5 -0.5" mesh="p3_unified" material="p3_unified_material"/>
+          <geom class="collision" pos="0.0 0.0072 0.011" euler="0 0 0.0" size="0.015 0.0175 0.012" />
+          <geom class="collision" pos="0.0 0.0127 0.023" euler="0 0 0.0" size="0.015 0.013 0.005" />
+          <!-- Link p2_unified_3 -->
+          <body name="p2_unified_3" pos="0.0145 0.015 0.013" quat="0.5 0.5 0.5 0.5">
+            <!-- Joint from p3_unified_3 to p2_unified_3 -->
+            <joint axis="0 0 1" name="if_pip" type="hinge" range="-0.506145483078337 1.8849555921538945"/>
+            <inertial pos="0.0304899 -0.00688132 -0.0146269" mass="0.232602" fullinertia="5.30625e-05 4.56759e-05 5.89736e-05 3.70526e-06 1.23454e-06 -6.30317e-07"/>
+            <!-- Part p2_unified_3 -->
+            <geom type="mesh" class="visual" pos="0.00905 -6.93889e-18 -0.0145" quat="0.5 0.5 0.5 -0.5" mesh="p2_unified" material="p2_unified_material"/> 
+            <geom class="collision" pos="0.02 -0.009 0.0015" euler="0 0 -0.95" size="0.02 0.01 0.004" />
+            <!-- <geom class="collision" type="cylinder" pos="0.0 0 0.0035" size="0.008 0.005 " /> -->
+            <geom class="collision" pos="0.02 -0.009 -0.0305" euler="0 0 -0.95" size="0.02 0.01 0.004" />
+            <!-- <geom class="collision" type="cylinder" pos="0.0 0 -0.03" size="0.008 0.003 " /> -->
+            <geom class="collision" pos="0.033 -0.011 -0.0145" euler="0 0 0" size="0.015 0.02 0.014" />
+            <geom class="collision" pos="0.0331 0.0105 -0.0145" euler="0 0 0" size="0.0122 0.004 0.014" />
+            <!-- Link fingertop_unfied_3 -->
+            <body name="fingertop_unfied_3" pos="0.0361 -1.11022e-16 -0.0291" quat="0.707107 -2.30991e-16 4.44089e-16 0.707107">
+              <!-- Joint from p2_unified_3 to fingertop_unfied_3 -->
+              <joint axis="0 0 1" name="if_dip" type="hinge" range="-0.3665191429188092 2.0420352248333655"/>
+              <inertial pos="-0.00193531 -0.0359351 0.0145854" mass="0.25168" fullinertia="7.05202e-05 3.63661e-05 6.58529e-05 1.03034e-06 -1.87024e-07 -1.07782e-06"/>
+              <!-- Part fingertop_unfied_3 -->
+              <geom type="mesh" class="visual" pos="-0.00135925 -0.025 0.0145" quat="0.5 -0.5 -0.5 -0.5" mesh="fingertop_unfied" material="fingertop_unfied_material"/>
+              <geom class="collision" pos="0.0 -0.009 -0.001" euler="0 0 1.57" size="0.017 0.01 0.004" />
+              <geom class="collision" pos="0.0 -0.009  0.03"  euler="0 0 1.57" size="0.017 0.01 0.004" />
+              <geom class="collision" pos="-0.0005 0.0 0.035" euler="0 0 0" size="0.01 0.002 0.002" />
+              <geom class="collision" pos="-0.016 -0.0325 0.015" euler="0 0 0" size="0.006 0.022 0.015" />
+              <geom class="collision"  type="mesh" pos="-0.0009 -0.025 0.0145"
+               euler="-1.57 0 -1.57" mesh="outer_skin_v1_3_1"/>
+
+              <geom name="IF_Marker" class="marker" pos="0.014 -0.045 0.0145" />
+            </body>
+          </body>
+        </body>
+      </body>
+      <!-- Link thp2_unified -->
+      <body name="thp2_unified" pos="0.0480627 -0.013 0.07" quat="5.50081e-15 -3.747e-15 1 -9.54098e-18">
+        <!-- Joint from leap_hand_xela_back_cover to thp2_unified -->
+        <joint axis="0 0 1" name="th_cmc" type="hinge" range="-0.3490658503988579 2.0943951023932033"/>
+        <inertial pos="-0.000232587 0.00882444 0.0117326" mass="0.162082" 
+        fullinertia="2.37871e-05 1.73561e-05 2.83432e-05 1.34767e-07 5.50367e-08 -9.6937e-08"/>
+        <!-- Part thp2_unified -->
+        <geom type="mesh" class="visual" pos="0 0.0075 0" quat="0.5 -0.5 -0.5 -0.5" 
+        mesh="thp2_unified" material="thp2_unified_material"/>
+        <geom class="collision" pos="0 0.0085 0.0115" euler="0 0 0" size="0.015 0.019 0.0125" />
+        <!-- Link thconnector -->
+        <body name="thconnector" pos="-0.0144 -8.32667e-17 0.013" quat="9.70682e-16 -0.707107 -9.99201e-16 0.707107">
+          <!-- Joint from thp2_unified to thconnector -->
+          <joint axis="0 0 1" name="th_axl" type="hinge" range="-0.34906585039886856 2.0943951023931926"/>
+          <inertial pos="0 0 0" mass="0.030626" fullinertia="2.88391e-06 7.74614e-06 7.38912e-06 -3.01753e-08 -3.03989e-07 2.92826e-08"/>
+          <!-- Part thconnector -->
+          <geom type="mesh" class="visual" pos="-0.0173 0 0.019" quat="0.707107 0.707107 -0 -0" 
+          mesh="thconnector" material="thconnector_material"/>
+          <geom class="collision" pos="0.016 -0.002 0.015" euler="0 0 0" size="0.002 0.013 0.0125" />
+          <geom class="collision" pos="-0.016 -0.002 0.015" euler="0 0 0" size="0.002 0.013 0.0125" />
+          <geom class="collision" pos="0 0 0.0015" euler="0 0 0" size="0.018 0.01 0.002" />
+          <!-- Part clipper -->
+          <geom type="mesh" class="visual" pos="0.0155 -0.006 0.019" 
+          quat="1.85719e-15 -0.707107 -0.707107 2.14491e-15" mesh="clipper" material="clipper_material"/>
+          <geom class="collision" pos="0.02 0.0 0.019" euler="0 0 0" size="0.002 0.01 0.003" />
+          <!-- Link thp1_unified -->
+          <body name="thp1_unified" pos="0.0145 -3.46945e-18 0.019" quat="0.5 0.5 -0.5 -0.5">
+            <!-- Joint from thconnector to thp1_unified -->
+            <joint axis="0 0 1" name="th_mcp" type="hinge" range="-0.471238898038445 2.443460952792085"/>
+            <inertial pos="0.00144426 0.0112332 0.0144179" mass="0.212884" 
+            fullinertia="5.2272e-05 3.20647e-05 5.08966e-05 5.30483e-07 -6.26679e-07 9.36463e-07"/>
+            <!-- Part thp1_unified -->
+            <geom type="mesh" class="visual" pos="-1.11022e-16 0.0245 0.0145" quat="1 0 -2.22045e-16 0" 
+            mesh="thp1_unified" material="thp1_unified_material"/>
+            <geom class="collision" pos="0.005 0.007 0.0145" euler="0 0 0" size="0.015 0.017 0.015" />
+            <geom class="collision" pos="0.005 0.025 0.0145" euler="0 0 0" size="0.015 0.004 0.015" />
+            <geom class="collision" pos="0.0 0.039 -0.001" euler="0 0 0" size="0.01 0.014 0.002" />
+            <geom class="collision" pos="0.0 0.045 -0.005" euler="0 0 0" size="0.01 0.0025 0.002" />
+            <geom class="collision" pos="0.0 0.039 0.0305" euler="0 0 0" size="0.01 0.014 0.002" />
+            <geom class="collision" pos="-0.0108 0.008 0.0145" euler="0 0 0" size="0.004 0.0125 0.0115" />
+            <!-- Link thfingertip_unified -->
+            <body name="thfingertip_unified" pos="-1.12757e-16 0.0446 4.16334e-17" quat="2.10665e-14 5.4264e-17 -3.33067e-16 1">
+              <!-- Joint from thp1_unified to thfingertip_unified -->
+              <joint axis="0 0 1" name="th_ipl" type="hinge" range="-1.3439035240355912 1.8849555921539185"/>
+              <inertial pos="-0.00210586 -0.0274158 0.0145397" mass="0.409212" 
+              fullinertia="0.000206758 5.56924e-05 0.000213078 1.87064e-06 6.68628e-07 -5.27707e-07"/>
+              <!-- Part thfingertip_unified -->
+              <geom type="mesh" class="visual" pos="-2.77556e-17 -0.0275 0.014504" 
+               quat="0.707107 0.707107 1.11022e-16 -1.20442e-16" mesh="thfingertip_unified"
+               material="thfingertip_unified_material"/>
+              <geom class="collision" pos="-0.006 -0.008 0.014" size="0.015 0.017 0.015" />
+              <geom class="collision" pos="0.0098 -0.0081 0.0145" size="0.005 0.0125 0.0115" />
+              <geom class="collision" pos="-0.018 -0.042 0.014" size="0.004 0.017 0.015" />
+              <geom class="collision" type="mesh"  pos="-0.00135925 -0.0300003 0.014504" 
+              euler="-1.57 0 -1.57" mesh="outer_skin_v1_3_1" />
+
+              <!-- FingerTip Marker  -->
+              <geom name="TH_Marker" class="marker" pos="0.014 -0.045 0.0145" />
+              
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+
+
+  <asset>
+    <mesh file="outer_skin_v1_3_1.stl"/>
+    <mesh file="thfingertip_unified.stl"/>
+    <mesh file="leap_hand_xela_bottom.stl"/>
+    <mesh file="p2_unified.stl"/>
+    <mesh file="fingertop_unfied.stl"/>
+    <mesh file="thp2_unified.stl"/>
+    <mesh file="leap_hand_xela_motorholder.stl"/>
+    <mesh file="uspa46.stl"/>
+    <mesh file="thp0_unified.stl"/>
+    <mesh file="p3_unified.stl"/>
+    <mesh file="clipper.stl"/>
+    <mesh file="thp1_unified.stl"/>
+    <mesh file="leap_hand_xela_side_cover.stl"/>
+    <mesh file="thconnector.stl"/>
+    <mesh file="p5_unified.stl"/>
+    <mesh file="top_palm.stl"/>
+    <mesh file="p4_unified.stl"/>
+    <mesh file="palm_face.stl"/>
+    <mesh file="leap_hand_xela_back_cover.stl"/>
+    <material name="outer_skin_v1_3_1_material" rgba="0.792157 0.819608 0.933333 1"/>
+    <material name="leap_hand_xela_motorholder_material" rgba="0.792157 0.819608 0.933333 1"/>
+    <material name="uspa46_material" rgba="0.792157 0.819608 0.933333 1"/>
+    <material name="thp0_unified_material" rgba="0.498039 0.498039 0.498039 1"/>
+    <material name="p5_unified_material" rgba="0.980392 0.713725 0.00392157 1"/>
+    <material name="top_palm_material" rgba="0.792157 0.819608 0.933333 1"/>
+    <material name="leap_hand_xela_back_cover_material" rgba="0.792157 0.819608 0.933333 1"/>
+    <material name="leap_hand_xela_side_cover_material" rgba="0.792157 0.819608 0.933333 1"/>
+    <material name="leap_hand_xela_bottom_material" rgba="0.792157 0.819608 0.933333 1"/>
+    <material name="palm_face_material" rgba="0.792157 0.819608 0.933333 1"/>
+    <material name="p4_unified_material" rgba="0.972549 0.529412 0.00392157 1"/>
+    <material name="p3_unified_material" rgba="0.972549 0.529412 0.00392157 1"/>
+    <material name="p2_unified_material" rgba="0.768627 0.886275 0.952941 1"/>
+    <material name="fingertop_unfied_material" rgba="0.917647 0.917647 0.917647 1"/>
+    <material name="thp2_unified_material" rgba="0.980392 0.713725 0.00392157 1"/>
+    <material name="thconnector_material" rgba="0.792157 0.819608 0.933333 1"/>
+    <material name="clipper_material" rgba="0.792157 0.819608 0.933333 1"/>
+    <material name="thp1_unified_material" rgba="0.647059 0.647059 0.647059 1"/>
+    <material name="thfingertip_unified_material" rgba="0.498039 0.498039 0.498039 1"/>
+
+
+
+    <material name="col" rgba="0.6 1.0 0.6 0.2" />
+    <material name="marker" rgba="1.0 0.0 0.0 1.0" />
+  </asset>
+  <actuator>
+    <position class="leapXELA" name="rf_mcp" joint="rf_mcp" inheritrange="1"/>
+    <position class="leapXELA" name="rf_rot" joint="rf_rot" inheritrange="1"/>
+    <position class="leapXELA" name="rf_pip" joint="rf_pip" inheritrange="1"/>
+    <position class="leapXELA" name="rf_dip" joint="rf_dip" inheritrange="1"/>
+    <position class="leapXELA" name="mf_mcp" joint="mf_mcp" inheritrange="1"/>
+    <position class="leapXELA" name="mf_rot" joint="mf_rot" inheritrange="1"/>
+    <position class="leapXELA" name="mf_pip" joint="mf_pip" inheritrange="1"/>
+    <position class="leapXELA" name="mf_dip" joint="mf_dip" inheritrange="1"/>
+    <position class="leapXELA" name="if_mcp" joint="if_mcp" inheritrange="1"/>
+    <position class="leapXELA" name="if_rot" joint="if_rot" inheritrange="1"/>
+    <position class="leapXELA" name="if_pip" joint="if_pip" inheritrange="1"/>
+    <position class="leapXELA" name="if_dip" joint="if_dip" inheritrange="1"/>
+    <position class="leapXELA" name="th_cmc" joint="th_cmc" inheritrange="1"/>
+    <position class="leapXELA" name="th_axl" joint="th_axl" inheritrange="1"/>
+    <position class="leapXELA" name="th_mcp" joint="th_mcp" inheritrange="1"/>
+    <position class="leapXELA" name="th_ipl" joint="th_ipl" inheritrange="1"/>
+  </actuator>
+  <equality/>
+</mujoco>

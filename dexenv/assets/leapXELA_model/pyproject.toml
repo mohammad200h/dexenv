@@ -1,0 +1,17 @@
+[project]
+name = "leapxela"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Mohammad",email = "mohammad200h@hotmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "onshape-to-robot @ file:///home/mamad/PhD/leapXELA/onshape-to-robot"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
