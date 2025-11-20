@@ -1202,7 +1202,7 @@ class LeapXelaBase(DClawBase):
 
     def get_dclaw_start_pose(self):
         dclaw_start_pose = gymapi.Transform()
-        dclaw_start_pose.p = gymapi.Vec3(0,0.1,0.2)
+        dclaw_start_pose.p = gymapi.Vec3(0,0.1,0.18)
         dclaw_start_pose.r = gymapi.Quat.from_axis_angle(gymapi.Vec3(1, 0, 0), np.pi/2)
         return dclaw_start_pose
     
