@@ -1,0 +1,837 @@
+<?xml version="1.0" ?>
+<!-- Generated using onshape-to-robot -->
+<!-- Onshape https://cad.onshape.com/documents/8570a76a8c0c31c84724c6f7/w/72ba6e2072d2b92f117e67a0/e/b5b8d162590c6484df5b91e8 -->
+<robot name="leapXELA_model">
+  <!-- Link leap_hand_xela_back_cover -->
+  <link name="leap_hand_xela_back_cover">
+    <inertial>
+      <origin xyz="-0.000780549 -0.00686016 0.0718797" rpy="0 0 0"/>
+      <mass value="1.50836"/>
+      <inertia ixx="0.00330843" ixy="6.79303e-05" ixz="-0.000176923" iyy="0.00420899" iyz="0.000182026" izz="0.00177685"/>
+    </inertial>
+    <!-- Part leap_hand_xela_motorholder -->
+    <visual>
+      <origin xyz="0.0180627 0.023 0.0834096" rpy="-3.14159 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/leap_hand_xela_motorholder.stl"/>
+      </geometry>
+      <material name="leap_hand_xela_motorholder_material">
+        <color rgba="0.792157 0.819608 0.933333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0180627 0.023 0.0834096" rpy="-3.14159 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/leap_hand_xela_motorholder.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part uspa46 -->
+    <visual>
+      <origin xyz="-0.005515 -0.027 0.0631" rpy="-1.24977e-16 -3.80585e-16 -3.14159"/>
+      <geometry>
+        <mesh filename="package://assets/uspa46.stl"/>
+      </geometry>
+      <material name="uspa46_material">
+        <color rgba="0.792157 0.819608 0.933333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.005515 -0.027 0.0631" rpy="-1.24977e-16 -3.80585e-16 -3.14159"/>
+      <geometry>
+        <mesh filename="package://assets/uspa46.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part thp0_unified -->
+    <visual>
+      <origin xyz="0.0235627 -0.013 0.0845" rpy="-1.09417e-14 -1.24977e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://assets/thp0_unified.stl"/>
+      </geometry>
+      <material name="thp0_unified_material">
+        <color rgba="0.498039 0.498039 0.498039 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0235627 -0.013 0.0845" rpy="-1.09417e-14 -1.24977e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://assets/thp0_unified.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part p5_unified -->
+    <visual>
+      <origin xyz="-0.03767 -0.009 0.1306" rpy="1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p5_unified.stl"/>
+      </geometry>
+      <material name="p5_unified_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.03767 -0.009 0.1306" rpy="1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p5_unified.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part top_palm -->
+    <visual>
+      <origin xyz="0.00785 -0.023 0.123706" rpy="3.14159 9.89266e-15 3.14159"/>
+      <geometry>
+        <mesh filename="package://assets/top_palm.stl"/>
+      </geometry>
+      <material name="top_palm_material">
+        <color rgba="0.792157 0.819608 0.933333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.00785 -0.023 0.123706" rpy="3.14159 9.89266e-15 3.14159"/>
+      <geometry>
+        <mesh filename="package://assets/top_palm.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part p5_unified_2 -->
+    <visual>
+      <origin xyz="0.00778 -0.009 0.1306" rpy="1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p5_unified.stl"/>
+      </geometry>
+      <material name="p5_unified_2_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.00778 -0.009 0.1306" rpy="1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p5_unified.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part uspa46_2 -->
+    <visual>
+      <origin xyz="-0.005515 -0.027 0.0962" rpy="-1.24977e-16 -3.80585e-16 -3.14159"/>
+      <geometry>
+        <mesh filename="package://assets/uspa46.stl"/>
+      </geometry>
+      <material name="uspa46_2_material">
+        <color rgba="0.792157 0.819608 0.933333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.005515 -0.027 0.0962" rpy="-1.24977e-16 -3.80585e-16 -3.14159"/>
+      <geometry>
+        <mesh filename="package://assets/uspa46.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part p5_unified_3 -->
+    <visual>
+      <origin xyz="0.05323 -0.009 0.1306" rpy="1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p5_unified.stl"/>
+      </geometry>
+      <material name="p5_unified_3_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.05323 -0.009 0.1306" rpy="1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p5_unified.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part uspa46_3 -->
+    <visual>
+      <origin xyz="0.044015 -0.027 0.0962" rpy="-3.14159 3.80585e-16 -1.9332e-16"/>
+      <geometry>
+        <mesh filename="package://assets/uspa46.stl"/>
+      </geometry>
+      <material name="uspa46_3_material">
+        <color rgba="0.792157 0.819608 0.933333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.044015 -0.027 0.0962" rpy="-3.14159 3.80585e-16 -1.9332e-16"/>
+      <geometry>
+        <mesh filename="package://assets/uspa46.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part leap_hand_xela_back_cover -->
+    <visual>
+      <origin xyz="-0.0293149 0.023 0.131221" rpy="-1.9332e-16 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/leap_hand_xela_back_cover.stl"/>
+      </geometry>
+      <material name="leap_hand_xela_back_cover_material">
+        <color rgba="0.792157 0.819608 0.933333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0293149 0.023 0.131221" rpy="-1.9332e-16 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/leap_hand_xela_back_cover.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part leap_hand_xela_side_cover -->
+    <visual>
+      <origin xyz="-0.0503368 1.249e-16 0.110009" rpy="1.5708 0.00518834 -2.48866e-16"/>
+      <geometry>
+        <mesh filename="package://assets/leap_hand_xela_side_cover.stl"/>
+      </geometry>
+      <material name="leap_hand_xela_side_cover_material">
+        <color rgba="0.792157 0.819608 0.933333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0503368 1.249e-16 0.110009" rpy="1.5708 0.00518834 -2.48866e-16"/>
+      <geometry>
+        <mesh filename="package://assets/leap_hand_xela_side_cover.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part leap_hand_xela_bottom -->
+    <visual>
+      <origin xyz="0 -0.023 0.0425" rpy="3.14159 6.72525e-17 3.14159"/>
+      <geometry>
+        <mesh filename="package://assets/leap_hand_xela_bottom.stl"/>
+      </geometry>
+      <material name="leap_hand_xela_bottom_material">
+        <color rgba="0.792157 0.819608 0.933333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.023 0.0425" rpy="3.14159 6.72525e-17 3.14159"/>
+      <geometry>
+        <mesh filename="package://assets/leap_hand_xela_bottom.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part palm_face -->
+    <visual>
+      <origin xyz="-0.0283776 -0.029 0.131221" rpy="-1.9332e-16 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/palm_face.stl"/>
+      </geometry>
+      <material name="palm_face_material">
+        <color rgba="0.792157 0.819608 0.933333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0283776 -0.029 0.131221" rpy="-1.9332e-16 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/palm_face.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link p4_unified -->
+  <link name="p4_unified">
+    <inertial>
+      <origin xyz="0.0342889 -0.0265621 -0.0145004" rpy="0 0 0"/>
+      <mass value="0.0353104"/>
+      <inertia ixx="6.90801e-06" ixy="2.26365e-06" ixz="1.79475e-07" iyy="1.04766e-05" iyz="-1.82708e-07" izz="1.10431e-05"/>
+    </inertial>
+    <!-- Part p4_unified -->
+    <visual>
+      <origin xyz="0.0048 -6.93889e-18 -0.0145" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p4_unified.stl"/>
+      </geometry>
+      <material name="p4_unified_material">
+        <color rgba="0.972549 0.529412 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0048 -6.93889e-18 -0.0145" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p4_unified.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link p3_unified -->
+  <link name="p3_unified">
+    <inertial>
+      <origin xyz="-0.000258994 0.00848001 0.0133488" rpy="0 0 0"/>
+      <mass value="0.0241611"/>
+      <inertia ixx="3.54425e-06" ixy="-1.64571e-08" ixz="-1.52207e-08" iyy="2.67248e-06" iyz="-1.71388e-07" izz="3.5384e-06"/>
+    </inertial>
+    <!-- Part p3_unified -->
+    <visual>
+      <origin xyz="0 0.0075 -8.67362e-19" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p3_unified.stl"/>
+      </geometry>
+      <material name="p3_unified_material">
+        <color rgba="0.972549 0.529412 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0.0075 -8.67362e-19" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p3_unified.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link p2_unified -->
+  <link name="p2_unified">
+    <inertial>
+      <origin xyz="0.0304899 -0.00688132 -0.0146269" rpy="0 0 0"/>
+      <mass value="0.0355531"/>
+      <inertia ixx="8.11058e-06" ixy="5.66349e-07" ixz="1.88699e-07" iyy="6.98155e-06" iyz="-9.63438e-08" izz="9.0141e-06"/>
+    </inertial>
+    <!-- Part p2_unified -->
+    <visual>
+      <origin xyz="0.00905 -6.93889e-18 -0.0145" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p2_unified.stl"/>
+      </geometry>
+      <material name="p2_unified_material">
+        <color rgba="0.768627 0.886275 0.952941 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.00905 -6.93889e-18 -0.0145" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p2_unified.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link fingertop_unfied -->
+  <link name="fingertop_unfied">
+    <inertial>
+      <origin xyz="-0.00193531 -0.0359351 0.0145854" rpy="0 0 0"/>
+      <mass value="0.0384693"/>
+      <inertia ixx="1.0779e-05" ixy="1.57487e-07" ixz="-2.85866e-08" iyy="5.55855e-06" iyz="-1.64744e-07" izz="1.00656e-05"/>
+    </inertial>
+    <!-- Part fingertop_unfied -->
+    <visual>
+      <origin xyz="-0.00135925 -0.025 0.0145" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/fingertop_unfied.stl"/>
+      </geometry>
+      <material name="fingertop_unfied_material">
+        <color rgba="0.917647 0.917647 0.917647 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.00135925 -0.025 0.0145" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/fingertop_unfied.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link RF_Marker -->
+  <link name="RF_Marker">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.005"/>
+      </geometry>
+      <material name="marker_material">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from p2_unified to fingertop_unfied -->
+  <joint name="rf_dip" type="revolute">
+    <origin xyz="0.0361 -1.11022e-16 -0.0291" rpy="2.13993e-16 8.67335e-16 1.5708"/>
+    <parent link="p2_unified"/>
+    <child link="fingertop_unfied"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.366" upper="2.042"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Joint from fingertop_unfied to RF_Marker -->
+  <joint name="ring_finger_marker_joint" type="fixed">
+    <origin xyz="0.015 -0.04 0.0145" rpy="0 0 0"/>
+    <parent link="fingertop_unfied"/>
+    <child link="RF_Marker"/>
+  </joint>
+  <!-- Joint from p3_unified to p2_unified -->
+  <joint name="rf_pip" type="revolute">
+    <origin xyz="0.0145 0.015 0.013" rpy="1.5708 -1.88901e-14 1.5708"/>
+    <parent link="p3_unified"/>
+    <child link="p2_unified"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.506" upper="1.885"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Joint from p4_unified to p3_unified -->
+  <joint name="rf_rot" type="revolute">
+    <origin xyz="0.0326 -0.0123 -0.0145" rpy="-1.5708 -1.5708 0"/>
+    <parent link="p4_unified"/>
+    <child link="p3_unified"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-1.047" upper="1.047"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Joint from leap_hand_xela_back_cover to p4_unified -->
+  <joint name="rf_mcp" type="revolute">
+    <origin xyz="-0.02317 -0.0165 0.1436" rpy="3.14159 -1.5708 0"/>
+    <parent link="leap_hand_xela_back_cover"/>
+    <child link="p4_unified"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.314" upper="2.23"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Link p4_unified_2 -->
+  <link name="p4_unified_2">
+    <inertial>
+      <origin xyz="0.0342889 -0.0265621 -0.0145004" rpy="0 0 0"/>
+      <mass value="0.0353104"/>
+      <inertia ixx="6.90801e-06" ixy="2.26365e-06" ixz="1.79475e-07" iyy="1.04766e-05" iyz="-1.82708e-07" izz="1.10431e-05"/>
+    </inertial>
+    <!-- Part p4_unified_2 -->
+    <visual>
+      <origin xyz="0.0048 -3.46945e-18 -0.0145" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p4_unified.stl"/>
+      </geometry>
+      <material name="p4_unified_2_material">
+        <color rgba="0.972549 0.529412 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0048 -3.46945e-18 -0.0145" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p4_unified.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link p3_unified_2 -->
+  <link name="p3_unified_2">
+    <inertial>
+      <origin xyz="-0.000258994 0.00848001 0.0133488" rpy="0 0 0"/>
+      <mass value="0.0241611"/>
+      <inertia ixx="3.54425e-06" ixy="-1.64571e-08" ixz="-1.52207e-08" iyy="2.67248e-06" iyz="-1.71388e-07" izz="3.5384e-06"/>
+    </inertial>
+    <!-- Part p3_unified_2 -->
+    <visual>
+      <origin xyz="-8.67362e-19 0.0075 -8.67362e-19" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p3_unified.stl"/>
+      </geometry>
+      <material name="p3_unified_2_material">
+        <color rgba="0.972549 0.529412 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-8.67362e-19 0.0075 -8.67362e-19" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p3_unified.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link p2_unified_2 -->
+  <link name="p2_unified_2">
+    <inertial>
+      <origin xyz="0.0304899 -0.00688132 -0.0146269" rpy="0 0 0"/>
+      <mass value="0.0355531"/>
+      <inertia ixx="8.11058e-06" ixy="5.66349e-07" ixz="1.88699e-07" iyy="6.98155e-06" iyz="-9.63438e-08" izz="9.0141e-06"/>
+    </inertial>
+    <!-- Part p2_unified_2 -->
+    <visual>
+      <origin xyz="0.00905 -1.04083e-17 -0.0145" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p2_unified.stl"/>
+      </geometry>
+      <material name="p2_unified_2_material">
+        <color rgba="0.768627 0.886275 0.952941 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.00905 -1.04083e-17 -0.0145" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p2_unified.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link fingertop_unfied_2 -->
+  <link name="fingertop_unfied_2">
+    <inertial>
+      <origin xyz="-0.00193531 -0.0359351 0.0145854" rpy="0 0 0"/>
+      <mass value="0.0384693"/>
+      <inertia ixx="1.0779e-05" ixy="1.57487e-07" ixz="-2.85866e-08" iyy="5.55855e-06" iyz="-1.64744e-07" izz="1.00656e-05"/>
+    </inertial>
+    <!-- Part fingertop_unfied_2 -->
+    <visual>
+      <origin xyz="-0.00135925 -0.025 0.0145" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/fingertop_unfied.stl"/>
+      </geometry>
+      <material name="fingertop_unfied_2_material">
+        <color rgba="0.917647 0.917647 0.917647 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.00135925 -0.025 0.0145" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/fingertop_unfied.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link MF_Marker -->
+  <link name="MF_Marker">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.005"/>
+      </geometry>
+      <material name="marker_material">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from p2_unified_2 to fingertop_unfied_2 -->
+  <joint name="mf_dip" type="revolute">
+    <origin xyz="0.0361 -1.14492e-16 -0.0291" rpy="2.13993e-16 8.67335e-16 1.5708"/>
+    <parent link="p2_unified_2"/>
+    <child link="fingertop_unfied_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.366" upper="2.042"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Joint from fingertop_unfied_2 to MF_Marker -->
+  <joint name="middle_finger_marker_joint" type="fixed">
+    <origin xyz="0.015 -0.04 0.0145" rpy="0 0 0"/>
+    <parent link="fingertop_unfied_2"/>
+    <child link="MF_Marker"/>
+  </joint>
+  <!-- Joint from p3_unified_2 to p2_unified_2 -->
+  <joint name="mf_pip" type="revolute">
+    <origin xyz="0.0145 0.015 0.013" rpy="1.5708 -1.88901e-14 1.5708"/>
+    <parent link="p3_unified_2"/>
+    <child link="p2_unified_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.506" upper="1.885"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Joint from p4_unified_2 to p3_unified_2 -->
+  <joint name="mf_rot" type="revolute">
+    <origin xyz="0.0326 -0.0123 -0.0145" rpy="-1.5708 -1.5708 0"/>
+    <parent link="p4_unified_2"/>
+    <child link="p3_unified_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-1.047" upper="1.047"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Joint from leap_hand_xela_back_cover to p4_unified_2 -->
+  <joint name="mf_mcp" type="revolute">
+    <origin xyz="0.02228 -0.0165 0.1436" rpy="3.14159 -1.5708 0"/>
+    <parent link="leap_hand_xela_back_cover"/>
+    <child link="p4_unified_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.314" upper="2.23"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Link p4_unified_3 -->
+  <link name="p4_unified_3">
+    <inertial>
+      <origin xyz="0.0342889 -0.0265621 -0.0145004" rpy="0 0 0"/>
+      <mass value="0.0353104"/>
+      <inertia ixx="6.90801e-06" ixy="2.26365e-06" ixz="1.79475e-07" iyy="1.04766e-05" iyz="-1.82708e-07" izz="1.10431e-05"/>
+    </inertial>
+    <!-- Part p4_unified_3 -->
+    <visual>
+      <origin xyz="0.0048 -6.93889e-18 -0.0145" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p4_unified.stl"/>
+      </geometry>
+      <material name="p4_unified_3_material">
+        <color rgba="0.972549 0.529412 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0048 -6.93889e-18 -0.0145" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p4_unified.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link p3_unified_3 -->
+  <link name="p3_unified_3">
+    <inertial>
+      <origin xyz="-0.000258994 0.00848001 0.0133488" rpy="0 0 0"/>
+      <mass value="0.0241611"/>
+      <inertia ixx="3.54425e-06" ixy="-1.64571e-08" ixz="-1.52207e-08" iyy="2.67248e-06" iyz="-1.71388e-07" izz="3.5384e-06"/>
+    </inertial>
+    <!-- Part p3_unified_3 -->
+    <visual>
+      <origin xyz="0 0.0075 -8.67362e-19" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p3_unified.stl"/>
+      </geometry>
+      <material name="p3_unified_3_material">
+        <color rgba="0.972549 0.529412 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0.0075 -8.67362e-19" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p3_unified.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link p2_unified_3 -->
+  <link name="p2_unified_3">
+    <inertial>
+      <origin xyz="0.0304899 -0.00688132 -0.0146269" rpy="0 0 0"/>
+      <mass value="0.0355531"/>
+      <inertia ixx="8.11058e-06" ixy="5.66349e-07" ixz="1.88699e-07" iyy="6.98155e-06" iyz="-9.63438e-08" izz="9.0141e-06"/>
+    </inertial>
+    <!-- Part p2_unified_3 -->
+    <visual>
+      <origin xyz="0.00905 -6.93889e-18 -0.0145" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p2_unified.stl"/>
+      </geometry>
+      <material name="p2_unified_3_material">
+        <color rgba="0.768627 0.886275 0.952941 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.00905 -6.93889e-18 -0.0145" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/p2_unified.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link fingertop_unfied_3 -->
+  <link name="fingertop_unfied_3">
+    <inertial>
+      <origin xyz="-0.00193531 -0.0359351 0.0145854" rpy="0 0 0"/>
+      <mass value="0.0384693"/>
+      <inertia ixx="1.0779e-05" ixy="1.57487e-07" ixz="-2.85866e-08" iyy="5.55855e-06" iyz="-1.64744e-07" izz="1.00656e-05"/>
+    </inertial>
+    <!-- Part fingertop_unfied_3 -->
+    <visual>
+      <origin xyz="-0.00135925 -0.025 0.0145" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/fingertop_unfied.stl"/>
+      </geometry>
+      <material name="fingertop_unfied_3_material">
+        <color rgba="0.917647 0.917647 0.917647 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.00135925 -0.025 0.0145" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/fingertop_unfied.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link IF_Marker -->
+  <link name="IF_Marker">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.005"/>
+      </geometry>
+      <material name="marker_material">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from p2_unified_3 to fingertop_unfied_3 -->
+  <joint name="if_dip" type="revolute">
+    <origin xyz="0.0361 -1.11022e-16 -0.0291" rpy="2.13993e-16 8.67335e-16 1.5708"/>
+    <parent link="p2_unified_3"/>
+    <child link="fingertop_unfied_3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.366" upper="2.042"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Joint from fingertop_unfied_3 to IF_Marker -->
+  <joint name="first_finger_marker_joint" type="fixed">
+    <origin xyz="0.015 -0.04 0.0145" rpy="0 0 0"/>
+    <parent link="fingertop_unfied_3"/>
+    <child link="IF_Marker"/>
+  </joint>
+  <!-- Joint from p3_unified_3 to p2_unified_3 -->
+  <joint name="if_pip" type="revolute">
+    <origin xyz="0.0145 0.015 0.013" rpy="1.5708 -1.88901e-14 1.5708"/>
+    <parent link="p3_unified_3"/>
+    <child link="p2_unified_3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.506" upper="1.885"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Joint from p4_unified_3 to p3_unified_3 -->
+  <joint name="if_rot" type="revolute">
+    <origin xyz="0.0326 -0.0123 -0.0145" rpy="-1.5708 -1.5708 0"/>
+    <parent link="p4_unified_3"/>
+    <child link="p3_unified_3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-1.047" upper="1.047"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Joint from leap_hand_xela_back_cover to p4_unified_3 -->
+  <joint name="if_mcp" type="revolute">
+    <origin xyz="0.06773 -0.0165 0.1436" rpy="3.14159 -1.5708 0"/>
+    <parent link="leap_hand_xela_back_cover"/>
+    <child link="p4_unified_3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.314" upper="2.23"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Link thp2_unified -->
+  <link name="thp2_unified">
+    <inertial>
+      <origin xyz="-0.000232587 0.00882444 0.0117326" rpy="0 0 0"/>
+      <mass value="0.0247742"/>
+      <inertia ixx="3.63585e-06" ixy="2.05992e-08" ixz="8.41235e-09" iyy="2.65288e-06" iyz="-1.48168e-08" izz="4.33226e-06"/>
+    </inertial>
+    <!-- Part thp2_unified -->
+    <visual>
+      <origin xyz="6.93889e-18 0.0075 0" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/thp2_unified.stl"/>
+      </geometry>
+      <material name="thp2_unified_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="6.93889e-18 0.0075 0" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://assets/thp2_unified.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link clipper -->
+  <link name="clipper">
+    <inertial>
+      <origin xyz="0.000911557 -0.00108086 0.00811114" rpy="0 0 0"/>
+      <mass value="0.00468118"/>
+      <inertia ixx="4.40805e-07" ixy="-4.61228e-09" ixz="-4.64646e-08" iyy="1.184e-06" iyz="4.47584e-09" izz="1.12942e-06"/>
+    </inertial>
+    <!-- Part thconnector -->
+    <visual>
+      <origin xyz="-0.0173 0 0.019" rpy="1.5708 -5.94947e-33 0"/>
+      <geometry>
+        <mesh filename="package://assets/thconnector.stl"/>
+      </geometry>
+      <material name="thconnector_material">
+        <color rgba="0.792157 0.819608 0.933333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0173 0 0.019" rpy="1.5708 -5.94947e-33 0"/>
+      <geometry>
+        <mesh filename="package://assets/thconnector.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part clipper -->
+    <visual>
+      <origin xyz="0.0155 -0.006 0.019" rpy="-3.14159 6.441e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://assets/clipper.stl"/>
+      </geometry>
+      <material name="clipper_material">
+        <color rgba="0.792157 0.819608 0.933333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0155 -0.006 0.019" rpy="-3.14159 6.441e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://assets/clipper.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link thp1_unified -->
+  <link name="thp1_unified">
+    <inertial>
+      <origin xyz="0.00144426 0.0112332 0.0144179" rpy="0 0 0"/>
+      <mass value="0.0325393"/>
+      <inertia ixx="7.98976e-06" ixy="8.10842e-08" ixz="-9.57877e-08" iyy="4.90108e-06" iyz="1.43138e-07" izz="7.77953e-06"/>
+    </inertial>
+    <!-- Part thp1_unified -->
+    <visual>
+      <origin xyz="-1.04083e-16 0.0245 0.0145" rpy="-1.18585e-20 -2.4943e-18 -7.62668e-31"/>
+      <geometry>
+        <mesh filename="package://assets/thp1_unified.stl"/>
+      </geometry>
+      <material name="thp1_unified_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-1.04083e-16 0.0245 0.0145" rpy="-1.18585e-20 -2.4943e-18 -7.62668e-31"/>
+      <geometry>
+        <mesh filename="package://assets/thp1_unified.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link thfingertip_unified -->
+  <link name="thfingertip_unified">
+    <inertial>
+      <origin xyz="-0.00210586 -0.0274158 0.0145397" rpy="0 0 0"/>
+      <mass value="0.062548"/>
+      <inertia ixx="3.16029e-05" ixy="2.85926e-07" ixz="1.022e-07" iyy="8.51257e-06" iyz="-8.06599e-08" izz="3.25689e-05"/>
+    </inertial>
+    <!-- Part thfingertip_unified -->
+    <visual>
+      <origin xyz="-2.08167e-17 -0.0275 0.014504" rpy="1.5708 3.40661e-16 -1.47911e-31"/>
+      <geometry>
+        <mesh filename="package://assets/thfingertip_unified.stl"/>
+      </geometry>
+      <material name="thfingertip_unified_material">
+        <color rgba="0.498039 0.498039 0.498039 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.08167e-17 -0.0275 0.014504" rpy="1.5708 3.40661e-16 -1.47911e-31"/>
+      <geometry>
+        <mesh filename="package://assets/thfingertip_unified.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link TH_Marker -->
+  <link name="TH_Marker">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.005"/>
+      </geometry>
+      <material name="marker_material">
+        <color rgba="1.0 0.7 0.3 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from thp1_unified to thfingertip_unified -->
+  <joint name="th_ipl" type="revolute">
+    <origin xyz="-1.17961e-16 0.0446 3.31766e-17" rpy="-9.7448e-17 -2.58356e-16 -3.14159"/>
+    <parent link="thp1_unified"/>
+    <child link="thfingertip_unified"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-1.34" upper="1.88"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Joint from thfingertip_unified to TH_Marker -->
+  <joint name="thumb_marker_joint" type="fixed">
+    <origin xyz="0.015 -0.05 0.0145" rpy="0 0 0"/>
+    <parent link="thfingertip_unified"/>
+    <child link="TH_Marker"/>
+  </joint>
+  <!-- Joint from clipper to thp1_unified -->
+  <joint name="th_mcp" type="revolute">
+    <origin xyz="0.0145 -1.38778e-17 0.019" rpy="1.5708 6.84091e-17 -1.5708"/>
+    <parent link="clipper"/>
+    <child link="thp1_unified"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-1.20" upper="1.90"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Joint from thp2_unified to clipper -->
+  <joint name="th_axl" type="revolute">
+    <origin xyz="-0.0144 -8.32667e-17 0.013" rpy="-1.5708 3.33067e-16 1.5708"/>
+    <parent link="thp2_unified"/>
+    <child link="clipper"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.47" upper="2.443"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <!-- Joint from leap_hand_xela_back_cover to thp2_unified -->
+  <joint name="th_cmc" type="revolute">
+    <origin xyz="0.0480627 -0.013 0.07" rpy="-3.14159 1.09417e-14 3.14159"/>
+    <parent link="leap_hand_xela_back_cover"/>
+    <child link="thp2_unified"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.349" upper="2.094"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+</robot>

@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="dclaw">
+    <link name="base_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.001043 -0.0014473 0.003175"/>
+            <mass value="0.12418"/>
+            <inertia ixx="0.00017134" ixy="-1.6301E-07" ixz="-1.2353E-22" iyy="0.00017153" iyz="1.3056E-21"
+                     izz="0.00034204"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/base_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="1 1 1 0.3"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/base_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <link name="one0_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="-9.6984E-12 -0.011645 0.00042918"/>
+            <mass value="0.093"/>
+            <inertia ixx="1.198E-05" ixy="1.6703E-14" ixz="-2.0363E-18" iyy="7.0141E-06" iyz="-1.9983E-08"
+                     izz="1.0544E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/one0_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.79216 0.81961 0.93333 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/one0_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="one0_jnt" type="fixed">
+        <origin rpy="1.303592653 -1.5708 0" xyz="-0.059326 -0.074831 0.0206"/>
+        <parent link="base_link"/>
+        <child link="one0_link"/>
+        <axis xyz="0 0 0"/>
+    </joint>
+    <link name="one1_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="-7.8252E-12 0.050471 0.00034957"/>
+            <mass value="0.093"/>
+            <inertia ixx="1.3448E-05" ixy="1.6694E-14" ixz="-8.9756E-18" iyy="1.0008E-05" iyz="-1.9983E-08"
+                     izz="1.3357E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/one1_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.89804 0.91765 0.92941 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/one1_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="one1_jnt" type="revolute">
+        <origin rpy="-1.5802 -1.5708 0" xyz="0 0 0"/>
+        <parent link="one0_link"/>
+        <child link="one1_link"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="2.6" lower="-0.45" upper="1.35" velocity="5"/>
+    </joint>
+    <link name="one2_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.00034957 0.050471 8.1916E-12"/>
+            <mass value="0.093"/>
+            <inertia ixx="1.1755E-05" ixy="-1.9983E-08" ixz="-3.4032E-17" iyy="1.0008E-05" iyz="-1.6689E-14"
+                     izz="1.505E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/one2_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.89804 0.91765 0.92941 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/one2_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="one2_jnt" type="revolute">
+        <origin rpy="0 1.5708 0" xyz="0 0.0685 0"/>
+        <parent link="one1_link"/>
+        <child link="one2_link"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="2.6" lower="-2" upper="2" velocity="5"/>
+    </joint>
+    <link name="one3_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="2.2419E-09 0.040897 2.1863E-09"/>
+            <mass value="0.025"/>
+            <inertia ixx="7.8405E-06" ixy="-1.8837E-12" ixz="-2.1743E-13" iyy="5.025E-06" iyz="1.1595E-13"
+                     izz="1.0341E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/one3_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.89804 0.91765 0.92941 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/one3_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="one3_jnt" type="revolute">
+        <origin rpy="0. 0 0" xyz="0 0.0685 0"/>
+        <parent link="one2_link"/>
+        <child link="one3_link"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="2.6" lower="-2" upper="2" velocity="5"/>
+    </joint>
+    <link name="one_tip_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <mass value="0.0001"/>
+        </inertial>
+    </link>
+    <joint name="one_tip_jnt" type="fixed">
+        <parent link="one3_link"/>
+        <child link="one_tip_link"/>
+        <origin xyz="0 0.075 0"/>
+    </joint>
+    <link name="two0_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="-9.3896E-12 -0.011645 0.00042918"/>
+            <mass value="0.093"/>
+            <inertia ixx="1.198E-05" ixy="1.6713E-14" ixz="-3.6145E-17" iyy="7.0141E-06" iyz="-1.9983E-08"
+                     izz="1.0544E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/two0_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.79216 0.81961 0.93333 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/two0_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="two0_jnt" type="fixed">
+        <origin rpy="2.87440265359 -1.5708 0" xyz="0.074831 -0.059326 0.0206"/>
+        <parent link="base_link"/>
+        <child link="two0_link"/>
+        <axis xyz="0 0 0"/>
+    </joint>
+    <link name="two1_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="-7.6742E-12 0.050471 0.00034957"/>
+            <mass value="0.093"/>
+            <inertia ixx="1.3448E-05" ixy="1.671E-14" ixz="-3.4378E-17" iyy="1.0008E-05" iyz="-1.9983E-08"
+                     izz="1.3357E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/two1_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.89804 0.91765 0.92941 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/two1_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="two1_jnt" type="revolute">
+        <origin rpy="3.1396 -1.5708 1.5822" xyz="0 0 0"/>
+        <parent link="two0_link"/>
+        <child link="two1_link"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="2.6" lower="-0.45" upper="1.35" velocity="5"/>
+    </joint>
+    <link name="two2_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.00034957 0.050471 7.3973E-12"/>
+            <mass value="0.093"/>
+            <inertia ixx="1.1755E-05" ixy="-1.9983E-08" ixz="7.1009E-17" iyy="1.0008E-05" iyz="-1.6726E-14"
+                     izz="1.505E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/two2_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.89804 0.91765 0.92941 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/two2_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="two2_jnt" type="revolute">
+        <origin rpy="0 -1.5708 0" xyz="0 0.0685 0"/>
+        <parent link="two1_link"/>
+        <child link="two2_link"/>
+        <axis xyz="-1 0 0"/>
+        <limit effort="2.6" lower="-2" upper="2" velocity="5"/>
+    </joint>
+    <link name="two3_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="2.2419E-09 0.040897 2.1863E-09"/>
+            <mass value="0.025"/>
+            <inertia ixx="7.8405E-06" ixy="-1.8837E-12" ixz="-2.1743E-13" iyy="5.025E-06" iyz="1.1595E-13"
+                     izz="1.0341E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/two3_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.89804 0.91765 0.92941 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/two3_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="two3_jnt" type="revolute">
+        <origin rpy="0. 0 0" xyz="0 0.0685 0"/>
+        <parent link="two2_link"/>
+        <child link="two3_link"/>
+        <axis xyz="-1 0 0"/>
+        <limit effort="2.6" lower="-2" upper="2" velocity="5"/>
+    </joint>
+    <link name="two_tip_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <mass value="0.0001"/>
+        </inertial>
+    </link>
+    <joint name="two_tip_jnt" type="fixed">
+        <parent link="two3_link"/>
+        <child link="two_tip_link"/>
+        <origin xyz="0 0.075 0"/>
+    </joint>
+    <link name="three0_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <mass value="0.093"/>
+            <inertia ixx="1.198E-05" ixy="1.6713E-14" ixz="-3.6145E-17" iyy="7.0141E-06" iyz="-1.9983E-08"
+                     izz="1.0544E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/three0_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="1 1 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/three0_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="three0_jnt" type="fixed">
+        <origin rpy="-1.83799265359 -1.5708 0" xyz="0.059326 0.074831 0.0206"/>
+        <parent link="base_link"/>
+        <child link="three0_link"/>
+        <axis xyz="0 0 0"/>
+    </joint>
+    <link name="three1_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="-7.7928E-12 0.050471 0.00034957"/>
+            <mass value="0.093"/>
+            <inertia ixx="1.3448E-05" ixy="1.67E-14" ixz="-2.1838E-17" iyy="1.0008E-05" iyz="-1.9983E-08"
+                     izz="1.3357E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/three1_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.89804 0.91765 0.92941 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/three1_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="three1_jnt" type="revolute">
+        <origin rpy="-1.5802 -1.5708 0" xyz="0 0 0"/>
+        <parent link="three0_link"/>
+        <child link="three1_link"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="2.6" lower="-0.45" upper="1.35" velocity="5"/>
+    </joint>
+    <link name="three2_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.00034957 0.050471 7.8204E-12"/>
+            <mass value="0.093"/>
+            <inertia ixx="1.1755E-05" ixy="-1.9983E-08" ixz="2.0392E-17" iyy="1.0008E-05" iyz="-1.6701E-14"
+                     izz="1.505E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/three2_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.89804 0.91765 0.92941 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/three2_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="three2_jnt" type="revolute">
+        <origin rpy="0 -1.5708 0" xyz="0 0.0685 0"/>
+        <parent link="three1_link"/>
+        <child link="three2_link"/>
+        <axis xyz="-1 0 0"/>
+        <limit effort="2.6" lower="-2" upper="2" velocity="5"/>
+    </joint>
+    <link name="three3_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="2.242E-09 0.040897 2.1722E-09"/>
+            <mass value="0.025"/>
+            <inertia ixx="7.8405E-06" ixy="-1.8837E-12" ixz="-2.198E-13" iyy="5.025E-06" iyz="1.1237E-13"
+                     izz="1.0341E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/three3_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.89804 0.91765 0.92941 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/three3_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="three3_jnt" type="revolute">
+        <origin rpy="0. 0 0" xyz="0 0.0685 0"/>
+        <parent link="three2_link"/>
+        <child link="three3_link"/>
+        <axis xyz="-1 0 0"/>
+        <limit effort="2.6" lower="-2" upper="2" velocity="5"/>
+    </joint>
+    <link name="three_tip_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <mass value="0.0001"/>
+        </inertial>
+    </link>
+    <joint name="three_tip_jnt" type="fixed">
+        <parent link="three3_link"/>
+        <child link="three_tip_link"/>
+        <origin xyz="0 0.075 0"/>
+    </joint>
+
+    <link name="four0_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="-9.3896E-12 -0.011645 0.00042918"/>
+            <mass value="0.093"/>
+            <inertia ixx="1.198E-05" ixy="1.6713E-14" ixz="-3.6145E-17" iyy="7.0141E-06" iyz="-1.9983E-08"
+                     izz="1.0544E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/four0_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.79216 0.81961 0.93333 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/four0_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="four0_jnt" type="fixed">
+        <origin rpy="-0.26719265359 -1.5708 0" xyz="-0.074831 0.059326 0.0206"/>
+        <parent link="base_link"/>
+        <child link="four0_link"/>
+        <axis xyz="0 0 0"/>
+    </joint>
+    <link name="four1_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="-7.6742E-12 0.050471 0.00034957"/>
+            <mass value="0.093"/>
+            <inertia ixx="1.3448E-05" ixy="1.671E-14" ixz="-3.4378E-17" iyy="1.0008E-05" iyz="-1.9983E-08"
+                     izz="1.3357E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/four1_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.89804 0.91765 0.92941 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/four1_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="four1_jnt" type="revolute">
+        <origin rpy="3.1396 -1.5708 1.5822" xyz="0 0 0"/>
+        <parent link="four0_link"/>
+        <child link="four1_link"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="2.6" lower="-0.45" upper="1.35" velocity="5"/>
+    </joint>
+    <link name="four2_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.00034957 0.050471 7.3973E-12"/>
+            <mass value="0.093"/>
+            <inertia ixx="1.1755E-05" ixy="-1.9983E-08" ixz="7.1009E-17" iyy="1.0008E-05" iyz="-1.6726E-14"
+                     izz="1.505E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/four2_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.89804 0.91765 0.92941 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/four2_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="four2_jnt" type="revolute">
+        <origin rpy="0 -1.5708 0" xyz="0 0.0685 0"/>
+        <parent link="four1_link"/>
+        <child link="four2_link"/>
+        <axis xyz="-1 0 0"/>
+        <limit effort="2.6" lower="-2" upper="2" velocity="5"/>
+    </joint>
+    <link name="four3_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="2.2419E-09 0.040897 2.1863E-09"/>
+            <mass value="0.025"/>
+            <inertia ixx="7.8405E-06" ixy="-1.8837E-12" ixz="-2.1743E-13" iyy="5.025E-06" iyz="1.1595E-13"
+                     izz="1.0341E-05"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/visual/four3_link.obj"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.89804 0.91765 0.92941 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/collision/four3_link.obj"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="four3_jnt" type="revolute">
+        <origin rpy="0. 0 0" xyz="0 0.0685 0"/>
+        <parent link="four2_link"/>
+        <child link="four3_link"/>
+        <axis xyz="-1 0 0"/>
+        <limit effort="2.6" lower="-2" upper="2" velocity="5"/>
+    </joint>
+    <link name="four_tip_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <mass value="0.0001"/>
+        </inertial>
+    </link>
+    <joint name="four_tip_jnt" type="fixed">
+        <parent link="four3_link"/>
+        <child link="four_tip_link"/>
+        <origin xyz="0 0.075 0"/>
+    </joint>
+</robot>

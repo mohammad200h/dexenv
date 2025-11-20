@@ -1124,7 +1124,7 @@ class LeapXelaBase(DClawBase):
         assert np.all(np.diff(dinds) > 0)  # check if it's in a sorted order (ascending)
 
         rb_links = self.gym.get_asset_rigid_body_names(leapXela_asset)
-        self.fingertips = [x for x in rb_links if '_Marker' in x]  # ["one_tip_link", "two_tip_link", "three_tip_link"]
+        self.fingertips = [x for x in rb_links if '_Marker' in x]  
         self.num_fingertips = len(self.fingertips)
         if self.num_fingertips == 0:
             raise ValueError("No fingertips found in the asset")
@@ -1199,13 +1199,63 @@ class LeapXelaBase(DClawBase):
             p.restitution = self.cfg.env.hand.restitution
         self.gym.set_asset_rigid_shape_properties(leapXela_asset, leapXela_asset_props)
         return leapXela_asset, leapXela_dof_props
+
     def get_dclaw_start_pose(self):
         dclaw_start_pose = gymapi.Transform()
+        dclaw_start_pose.p = gymapi.Vec3(0,0.1,0.2)
+        dclaw_start_pose.r = gymapi.Quat.from_axis_angle(gymapi.Vec3(1, 0, 0), np.pi/2)
         return dclaw_start_pose
+    
+    def get_object_start_pose(self, dclaw_start_pose):
+        object_start_pose = gymapi.Transform()
+        object_start_pose.p = gymapi.Vec3()
+        if self.cfg.env.obj_init_delta_pos is not None:
+            delta_pos = self.cfg.env.obj_init_delta_pos
+            object_start_pose.p.x = dclaw_start_pose.p.x + delta_pos[0]
+            object_start_pose.p.y = dclaw_start_pose.p.y + delta_pos[1]
+            object_start_pose.p.z = dclaw_start_pose.p.z + delta_pos[2]
+        else:
+            object_start_pose.p.x = dclaw_start_pose.p.x
+            pose_dy, pose_dz = -0.1, -0.13
+            object_start_pose.p.y = dclaw_start_pose.p.y + pose_dy
+            object_start_pose.p.z = dclaw_start_pose.p.z + pose_dz
+        return object_start_pose
+
+    def get_goal_object_start_pose(self, object_start_pose):
+        self.goal_displacement = gymapi.Vec3(0., -0.05, 0.3)
+        self.goal_displacement_tensor = to_torch(
+            [self.goal_displacement.x, self.goal_displacement.y, self.goal_displacement.z], device=self.device)
+        goal_start_pose = gymapi.Transform()
+        goal_start_pose.p = object_start_pose.p + self.goal_displacement
+        return goal_start_pose
     
 
 
 class LeapHandBase(DClawBase):
+
+    def get_dclaw_start_pose(self):
+        dclaw_start_pose = gymapi.Transform()
+        dclaw_start_pose.p = gymapi.Vec3(0,0.1,0.2)
+        dclaw_start_pose.r = gymapi.Quat.from_axis_angle(gymapi.Vec3(1, 0, 0), np.pi/2)
+        return dclaw_start_pose
+    
+    def get_object_start_pose(self, dclaw_start_pose):
+        object_start_pose = gymapi.Transform()
+        object_start_pose.p = gymapi.Vec3()
+        if self.cfg.env.obj_init_delta_pos is not None:
+            delta_pos = self.cfg.env.obj_init_delta_pos
+            object_start_pose.p.x = dclaw_start_pose.p.x + delta_pos[0]
+            object_start_pose.p.y = dclaw_start_pose.p.y + delta_pos[1]
+            object_start_pose.p.z = dclaw_start_pose.p.z + delta_pos[2]
+        else:
+            pose_dx, pose_dy, pose_dz = -0.02, 0, -0.13
+            object_start_pose.p.y = dclaw_start_pose.p.y + pose_dy
+            object_start_pose.p.z = dclaw_start_pose.p.z + pose_dz
+            object_start_pose.p.x = dclaw_start_pose.p.x + pose_dx
+            
+
+
+        return object_start_pose
 
     def get_dclaw_asset(self, asset_root=None, asset_options=None):
         # load leapXela asset
@@ -1333,6 +1383,7 @@ class LeapHandBase(DClawBase):
             p.restitution = self.cfg.env.hand.restitution
         self.gym.set_asset_rigid_shape_properties(leapXela_asset, leapXela_asset_props)
         return leapXela_asset, leapXela_dof_props
+    
     def get_dclaw_start_pose(self):
         dclaw_start_pose = gymapi.Transform()
         dclaw_start_pose.p = gymapi.Vec3(*get_axis_params(0.2, self.up_axis_idx))

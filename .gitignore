@@ -132,9 +132,6 @@ outputs/
 .idea/
 *.pt
 *.pkl
-*.urdf
-*.obj
-*.stl
-*.STL
+
 *.zip
 
